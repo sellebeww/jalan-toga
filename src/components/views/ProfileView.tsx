@@ -199,7 +199,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({ onNavigateToTopic }) =
                     {completedInMod}/{m.topics.length} ({pct}%)
                   </span>
                 </span>
-                <span className="block font-heading font-semibold text-sm text-slate-900 dark:text-slate-100 line-clamp-1">
+                <span className="font-heading font-semibold text-sm text-slate-900 dark:text-slate-100 line-clamp-1">
                   {m.title}
                 </span>
                 <span className="block w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
@@ -236,7 +236,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({ onNavigateToTopic }) =
                 if (!topic) return null;
                 return (
                   <button
-                type="button"
+                    type="button"
                     key={topicId}
                     onClick={() => onNavigateToTopic(topic.moduleSlug, topic.id)}
                     className="w-full text-left p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 cursor-pointer transition flex items-center justify-between text-xs"
@@ -274,7 +274,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({ onNavigateToTopic }) =
             <div className="space-y-2 max-h-64 overflow-y-auto pr-1">
               {notesList.map((item) => (
                 <button
-                type="button"
+                  type="button"
                   key={item.topicId}
                   onClick={() => item.topic && onNavigateToTopic(item.topic.moduleSlug, item.topicId)}
                   className="block w-full text-left p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer transition text-xs space-y-1"
@@ -282,7 +282,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({ onNavigateToTopic }) =
                   <span className="block font-heading font-semibold text-slate-900 dark:text-slate-100">
                     {item.topic?.title || item.topicId}
                   </span>
-                  <span className="block text-slate-500 dark:text-slate-400 line-clamp-2 italic font-serif">
+                  <span className="text-slate-500 dark:text-slate-400 line-clamp-2 italic font-serif">
                     "{item.content}"
                   </span>
                 </button>

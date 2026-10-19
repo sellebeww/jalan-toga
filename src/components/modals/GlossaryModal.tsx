@@ -200,7 +200,7 @@ export const GlossaryModal: React.FC<GlossaryModalProps> = ({ isOpen, onClose, i
                         {item.english}
                       </span>
                     )}
-                    <span className="block text-xs text-slate-500 dark:text-slate-400 line-clamp-2">
+                    <span className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2">
                       {item.meaning}
                     </span>
                   </button>

@@ -6,6 +6,9 @@ import { cn } from './cn';
 const FOCUSABLE =
   'a[href],button:not([disabled]),textarea,input:not([disabled]),select,[tabindex]:not([tabindex="-1"])';
 
+// Dialog bisa bertumpuk (mis. Ctrl+K di atas Glosarium); hanya yang teratas menanggapi keyboard.
+const dialogStack: HTMLElement[] = [];
+
 /** Perilaku dialog: fokus awal, jebakan fokus, tutup dengan Esc, kunci scroll latar, kembalikan fokus. */
 export function useDialogFocus(ref: React.RefObject<HTMLElement | null>, open: boolean, onClose: () => void) {
   // onClose sering berupa arrow inline; simpan di ref agar efek tidak berjalan ulang (fokus melompat) tiap render.
@@ -17,10 +20,12 @@ export function useDialogFocus(ref: React.RefObject<HTMLElement | null>, open: b
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     const node = ref.current;
+    if (node) dialogStack.push(node);
     const first = node?.querySelector<HTMLElement>(FOCUSABLE);
     first?.focus();
 
     const onKey = (e: KeyboardEvent) => {
+      if (!node || dialogStack[dialogStack.length - 1] !== node) return;
       if (e.key === 'Escape') {
         e.stopPropagation();
         closeRef.current();
@@ -41,6 +46,7 @@ export function useDialogFocus(ref: React.RefObject<HTMLElement | null>, open: b
     document.addEventListener('keydown', onKey);
     return () => {
       document.removeEventListener('keydown', onKey);
+      if (node) dialogStack.splice(dialogStack.lastIndexOf(node), 1);
       document.body.style.overflow = prevOverflow;
       previous?.focus?.();
     };

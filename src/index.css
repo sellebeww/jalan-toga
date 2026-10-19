@@ -209,9 +209,9 @@
    :where() menjaga spesifisitas setara utility biasa, jadi hover:/dark:text-* tetap menang. */
 @layer utilities {
   :where(html:not(.dark)) :is(.text-slate-400, .text-stone-400, .text-stone-500) { color: var(--text-muted); }
-  :where(html:not(.dark)) :is(.text-indigo-500, .text-indigo-600) { color: var(--color-indigo-700); }
-  :where(html:not(.dark)) .text-emerald-600 { color: var(--color-emerald-700); }
-  :where(html:not(.dark)) .text-teal-600 { color: var(--color-teal-700); }
+  :where(html:not(.dark)) :is(.text-indigo-500, .text-indigo-600) { color: var(--color-indigo-700, #0a6b62); }
+  :where(html:not(.dark)) .text-emerald-600 { color: var(--color-emerald-700, #007a55); }
+  :where(html:not(.dark)) .text-teal-600 { color: var(--color-teal-700, #00786f); }
   :where(.dark) :is(.text-slate-400, .text-slate-500, .text-stone-400, .text-stone-500):where(:not([class*='dark:text-'])),
   :where(.dark) :is(.dark\:text-slate-400, .dark\:text-slate-500, .dark\:text-stone-400, .dark\:text-stone-500) { color: var(--text-muted); }
 }

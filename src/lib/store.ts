@@ -113,17 +113,25 @@ const isObj = (v: unknown): v is Record<string, unknown> =>
 
 const REF_OPTIONAL = ['volume', 'issue', 'pages', 'publisher', 'city', 'edition', 'doi', 'url', 'accessed', 'note'] as const;
 
-function isValidReference(r: unknown): r is AppState['references'][number] {
-  if (!isObj(r)) return false;
+type Ref = AppState['references'][number];
+
+/** Field wajib harus bertipe benar (entri dibuang bila tidak); field opsional angka jadi string, sisanya dihapus. */
+function normalizeReference(r: unknown): Ref | null {
+  if (!isObj(r)) return null;
   const str = (k: string) => typeof r[k] === 'string';
-  return (
+  const ok =
     ['id', 'type', 'title', 'year', 'container'].every(str) &&
     Array.isArray(r.authors) &&
     r.authors.every((a) => isObj(a) && typeof a.family === 'string' && typeof a.given === 'string') &&
     Array.isArray(r.tags) &&
-    r.tags.every((t) => typeof t === 'string') &&
-    REF_OPTIONAL.every((k) => r[k] === undefined || str(k))
-  );
+    r.tags.every((t) => typeof t === 'string');
+  if (!ok) return null;
+  const out = { ...r };
+  for (const k of REF_OPTIONAL) {
+    if (typeof out[k] === 'number') out[k] = String(out[k]);
+    else if (out[k] !== undefined && typeof out[k] !== 'string') delete out[k];
+  }
+  return out as unknown as Ref;
 }
 
 /**
@@ -167,7 +175,7 @@ export function sanitizeState(raw: unknown): AppState {
   }
   if (!['system', 'light', 'dark'].includes(base.themePref)) base.themePref = 'system';
   // Formatter sitasi mengandalkan tipe field; entri rusak dari file impor dibuang agar halaman Referensi tidak crash.
-  base.references = base.references.filter(isValidReference);
+  base.references = base.references.map(normalizeReference).filter((r): r is Ref => r !== null);
   return base;
 }
 
