@@ -49,9 +49,9 @@ export const FlashcardsView: React.FC = () => {
               Total {totalCards} Kartu · {masteryPct}% Dikuasai
             </span>
           </div>
-          <h1 className="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900 dark:text-slate-100 tracking-tight">
+          <h2 className="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900 dark:text-slate-100 tracking-tight">
             Hafalan Cepat Konsep & Rumus RTI
-          </h1>
+          </h2>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
             Hafalkan definisi, klasifikasi, rumus statistik, dan aturan IEEE dengan pengulangan berjarak optimal.
           </p>

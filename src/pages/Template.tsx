@@ -35,7 +35,7 @@ function Templates() {
 
   return (
     <>
-      <div className="no-print grid gap-6 lg:grid-cols-5">
+      <div className="no-print grid grid-cols-1 gap-6 lg:grid-cols-5">
         <aside className="space-y-5 lg:col-span-2">
           <section className="card p-5">
             <h2 className="font-heading text-lg font-bold">Data untuk mengisi template</h2>

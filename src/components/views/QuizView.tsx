@@ -50,9 +50,9 @@ export const QuizView: React.FC = () => {
               105+ Soal Pembahasan
             </span>
           </div>
-          <h1 className="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900 dark:text-slate-100 tracking-tight">
+          <h2 className="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900 dark:text-slate-100 tracking-tight">
             Latihan & Uji Pemahaman RTI
-          </h1>
+          </h2>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
             Uji kesiapan ujian komprehensif, telaah perbandingan konsep krusial, dan pelajari studi kasus skripsi nyata.
           </p>

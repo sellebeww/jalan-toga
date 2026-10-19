@@ -96,9 +96,9 @@ export const ProfileView: React.FC<ProfileViewProps> = ({ onNavigateToTopic }) =
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="font-heading font-extrabold text-2xl text-slate-900 dark:text-slate-100">
+              <h2 className="font-heading font-extrabold text-2xl text-slate-900 dark:text-slate-100">
                 Profil Belajar Peneliti Muda
-              </h1>
+              </h2>
               <span className="text-xs px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-semibold border border-indigo-200 dark:border-indigo-800">
                 Level: Mahasiswa Skripsi
               </span>

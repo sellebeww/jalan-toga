@@ -330,9 +330,9 @@ export const StudyView: React.FC<StudyViewProps> = ({
 
               {/* Title & TLDR */}
               <div className="py-6">
-                <h1 className="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900 dark:text-slate-100 leading-tight tracking-tight">
+                <h2 className="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900 dark:text-slate-100 leading-tight tracking-tight">
                   {currentTopic.title}
-                </h1>
+                </h2>
                 <div className="mt-4 p-4 sm:p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-800 text-slate-700 dark:text-slate-300 leading-relaxed font-serif italic text-sm sm:text-base">
                   "{currentTopic.tldr}"
                 </div>
