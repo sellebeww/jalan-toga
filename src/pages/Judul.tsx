@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { CheckCircle2, CircleAlert, SpellCheck, ThumbsDown, ThumbsUp, TriangleAlert } from 'lucide-react';
 import { useLocation } from '../app/router';
 import { titleManualChecks, titlePairs } from '../data/topik';

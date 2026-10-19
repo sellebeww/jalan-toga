@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BarChart3, LineChart, PieChart, AlertTriangle, CheckCircle2, TrendingUp, Layers } from 'lucide-react';
+import { BarChart3, LineChart, PieChart, AlertTriangle, TrendingUp, Layers } from 'lucide-react';
 
 interface ChartRecommendation {
   type: string;

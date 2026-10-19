@@ -1,26 +1,21 @@
 import React, { useState } from 'react';
-import { 
-  allQuizQuestions, 
-  getQuizQuestionsByModule, 
-  generateMockExam 
+import {
+  getQuizQuestionsByModule,
+  generateMockExam
 } from '../../data/quizzes';
 import { allModules } from '../../data/modules';
 import { allComparisons } from '../../data/comparisons';
 import { runningCaseStudy } from '../../data/caseStudy';
 import { QuizRunner } from '../quiz/QuizRunner';
 import { useAppStore } from '../../lib/store';
-import { 
-  Award, 
-  Clock, 
-  Sparkles, 
-  BookOpen, 
-  GitCompare, 
-  FileText, 
-  History, 
-  CheckCircle2, 
+import {
+  Award,
+  Clock,
+  BookOpen,
+  GitCompare,
+  FileText,
+  History,
   AlertTriangle,
-  ArrowRight,
-  Filter,
   Lightbulb
 } from 'lucide-react';
 import { ModuleSlug } from '../../types';

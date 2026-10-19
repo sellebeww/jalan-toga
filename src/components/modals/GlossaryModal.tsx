@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { allGlossaryTerms } from '../../data/glossary';
 import { GlossaryTerm } from '../../types';
-import { Search, X, BookMarked, ExternalLink, Filter, BookOpen } from 'lucide-react';
+import { Search, X, BookMarked, BookOpen } from 'lucide-react';
 import { allModules } from '../../data/modules';
 
 interface GlossaryModalProps {

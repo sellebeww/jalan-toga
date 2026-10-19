@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Download, FileText, Printer, Search } from 'lucide-react';
 import { Link, useLocation, useTabParam } from '../app/router';
 import { docTemplates, fillDoc } from '../data/templates';

@@ -6,3 +6,11 @@ coverage/
 *.log
 .env*
 !.env.example
+.vite/
+*.tmp
+*.bak
+*.orig
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json

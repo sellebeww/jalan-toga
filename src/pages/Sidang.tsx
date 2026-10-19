@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Check, Eye, Mic, Play, RotateCcw, Search, Timer } from 'lucide-react';
 import { useTabParam } from '../app/router';
 import { answeringTips, dayOfChecklist, defenseQuestions, presentationTips, scopeLabels, slidesSempro, slidesSidang, timerOptions, type DefenseQuestion, type DefenseScope } from '../data/sidang';

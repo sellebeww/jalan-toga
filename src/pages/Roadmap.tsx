@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { AlertTriangle, ArrowRight, Check, ChevronDown, Circle, Download, Pencil, Route as RouteIcon } from 'lucide-react';
 import { Link } from '../app/router';
 import { semesterGroups, jalurInfo, phases } from '../data/roadmap';

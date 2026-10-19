@@ -1,32 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  allModules, 
-  getModuleBySlug, 
-  getTopicById, 
-  getAdjacentTopics 
+import {
+  allModules,
+  getModuleBySlug,
+  getAdjacentTopics
 } from '../../data/modules';
-import { Topic, ModuleData } from '../../types';
+import { Topic } from '../../types';
 import { appStore, useAppStore } from '../../lib/store';
 import { Callout } from '../ui/Callout';
 import { CompareTable } from '../ui/CompareTable';
-import { StepList } from '../ui/StepList';
 import { Timeline5Generations } from '../ui/Timeline';
 import { DIKWPyramid } from '../ui/Pyramid';
 import { ErrorMatrix2x2 } from '../ui/Matrix2x2';
 import { DecisionTree } from '../ui/DecisionTree';
 import { MiniQuizInline } from '../quiz/MiniQuizInline';
-import { 
-  Bookmark, 
-  CheckCircle2, 
-  ChevronRight, 
-  ChevronLeft, 
-  Printer, 
-  Sparkles, 
-  StickyNote, 
-  Clock, 
-  Menu,
-  Lightbulb,
-  AlertTriangle
+import {
+  Bookmark,
+  CheckCircle2,
+  ChevronRight,
+  ChevronLeft,
+  Printer,
+  Sparkles,
+  StickyNote,
+  Clock,
+  Menu
 } from 'lucide-react';
 
 interface StudyViewProps {

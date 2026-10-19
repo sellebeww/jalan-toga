@@ -12,19 +12,18 @@ import { ChartSelector } from '../tools/ChartSelector';
 import { ThesisAlignmentChecklist } from '../tools/ThesisAlignmentChecklist';
 import { PosterChecklist } from '../tools/PosterChecklist';
 import { DecisionTree } from '../ui/DecisionTree';
-import { 
-  Calculator, 
-  GitBranch, 
-  FileCheck, 
-  Compass, 
-  Search, 
-  Layers, 
-  Sparkles, 
-  Binary, 
-  CheckSquare, 
-  BarChart3, 
-  BookOpen, 
-  Users 
+import {
+  Calculator,
+  GitBranch,
+  FileCheck,
+  Compass,
+  Layers,
+  Sparkles,
+  Binary,
+  CheckSquare,
+  BarChart3,
+  BookOpen,
+  Users
 } from 'lucide-react';
 
 interface ToolsViewProps {

@@ -1,4 +1,3 @@
-import React from 'react';
 import { AlertTriangle, Ruler } from 'lucide-react';
 import { commonFormatMistakes, formatGroups, wordTips } from '../data/format';
 import { CampusNote, Page, PageHeader, Section } from '../components/common/ui';

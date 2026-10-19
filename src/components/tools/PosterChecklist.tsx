@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Layout, Printer, CheckCircle2, AlertTriangle, FileCheck } from 'lucide-react';
+import { Layout, Printer } from 'lucide-react';
 
 interface ChecklistGroup {
   groupTitle: string;

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { ListPlus, MessagesSquare, Pencil, Plus, Send, Trash2 } from 'lucide-react';
 import { useTabParam } from '../app/router';
 import { messageTemplates, fillTemplate, greetingNow } from '../data/pesan';

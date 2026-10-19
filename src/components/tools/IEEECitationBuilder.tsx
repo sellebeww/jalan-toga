@@ -8,7 +8,7 @@ export const IEEECitationBuilder: React.FC = () => {
   const [authorLastName, setAuthorLastName] = useState<string>('Al Muhairy');
   const [title, setTitle] = useState<string>('Evaluasi Algoritma Temu Balik Informasi');
   const [containerTitle, setContainerTitle] = useState<string>('Jurnal Sistem Komputer'); // Journal or Book title
-  const [city, setCity] = useState<string>('Jakarta');
+  const [city] = useState<string>('Jakarta'); // belum ada input kota; lihat docs/audit/AUDIT_REPORT.md
   const [publisher, setPublisher] = useState<string>('Informatika Press');
   const [volume, setVolume] = useState<string>('12');
   const [issue, setIssue] = useState<string>('2');

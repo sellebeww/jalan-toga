@@ -1,5 +1,5 @@
 import React from 'react';
-import { AlertCircle, AlertTriangle, Lightbulb, Bookmark, Info, CheckCircle2 } from 'lucide-react';
+import { AlertTriangle, Lightbulb, Bookmark, Info, CheckCircle2 } from 'lucide-react';
 
 interface CalloutProps {
   type?: 'info' | 'warn' | 'memorize' | 'tip' | 'success';

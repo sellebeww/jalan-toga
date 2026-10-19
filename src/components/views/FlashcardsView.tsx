@@ -2,16 +2,10 @@ import React, { useState } from 'react';
 import { FlashcardRunner } from '../flashcard/FlashcardRunner';
 import { allFlashcards } from '../../data/flashcards';
 import { useAppStore, appStore } from '../../lib/store';
-import { 
-  Layers, 
-  BrainCircuit, 
-  RotateCcw, 
-  Sparkles, 
-  CheckCircle2, 
-  Clock, 
-  HelpCircle, 
-  Info,
-  Calendar
+import {
+  BrainCircuit,
+  RotateCcw,
+  Info
 } from 'lucide-react';
 
 export const FlashcardsView: React.FC = () => {

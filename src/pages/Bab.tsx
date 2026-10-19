@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ArrowLeft, ArrowRight, BookText, Check } from 'lucide-react';
 import { Link, navigate, useLocation } from '../app/router';
 import { chapterById, chaptersFor, urutanMenulis } from '../data/chapters';

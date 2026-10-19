@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { HeartHandshake, Phone, RefreshCw } from 'lucide-react';
 import { burnoutDisclaimer, burnoutItems, burnoutLevels, burnoutScale, difficultAdvisor, motivationNotes, procrastinationTypes, supportResources, techniques } from '../data/mental';
 import { appStore, useAppStore } from '../lib/store';

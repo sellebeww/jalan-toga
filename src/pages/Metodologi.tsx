@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { ArrowLeft, ArrowRight, Check, Compass, RotateCcw } from 'lucide-react';
 import { Link } from '../app/router';
 import { approaches, scoreWizard, wizard, type Approach } from '../data/methods';

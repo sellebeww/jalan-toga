@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { ArrowLeft, ArrowRight, Check, Rocket, Search } from 'lucide-react';
 import { majors, rumpunList } from '../data/majors';
 import { jalurInfo, statusOptions } from '../data/roadmap';
