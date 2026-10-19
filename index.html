@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Jalan Toga · Dari bingung, sampai wisuda</title>
+    <meta name="description" content="Jalan Toga, pendamping skripsi untuk mahasiswa Indonesia: roadmap personal, panduan tiap bab, pemilih metodologi, toolkit statistik, pengelola referensi, log bimbingan, dan simulasi sidang. Gratis, tanpa login." />
+    <meta name="theme-color" content="#fbf8f3" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="application-name" content="Jalan Toga" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Jalan Toga" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta property="og:site_name" content="Jalan Toga" />
+    <meta property="og:title" content="Jalan Toga · Dari bingung, sampai wisuda" />
+    <meta property="og:description" content="Dari bingung cari topik sampai wisuda: roadmap personal, panduan bab, alat penelitian, dan simulasi sidang untuk semua jurusan." />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:image" content="./og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" type="image/png" href="./favicon.png" />
+    <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
+    <script>
+      // Terapkan tema sebelum render pertama agar tidak berkedip.
+      (function () {
+        try {
+          var pref = 'system';
+          var raw = localStorage.getItem('pendamping_skripsi_v2');
+          if (raw) pref = (JSON.parse(raw) || {}).themePref || 'system';
+          var dark = pref === 'dark' || (pref === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          if (dark) {
+            document.documentElement.classList.add('dark');
+            document.documentElement.style.colorScheme = 'dark';
+            var m = document.querySelector('meta[name="theme-color"]');
+            if (m) m.setAttribute('content', '#14110e');
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body class="min-h-dvh bg-paper text-ink antialiased dark:bg-slate-950 dark:text-slate-100">
+    <noscript>Jalan Toga membutuhkan JavaScript untuk berjalan. Aktifkan JavaScript di browsermu lalu muat ulang halaman.</noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

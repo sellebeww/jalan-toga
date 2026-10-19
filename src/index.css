@@ -1,0 +1,203 @@
+@import "@fontsource-variable/fraunces/wght.css";
+@import "@fontsource-variable/plus-jakarta-sans/wght.css";
+@import "tailwindcss";
+
+/* Dark mode mengikuti class .dark (diatur dari lib/theme.ts: sistem / terang / gelap) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-heading: 'Fraunces Variable', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Plus Jakarta Sans Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-serif: 'Fraunces Variable', Georgia, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Identitas "Kertas & Tinta": netral hangat + aksen tanah liat.
+     Menimpa skala slate/indigo bawaan supaya seluruh komponen ikut hangat. */
+  --color-slate-50: #faf8f5;
+  --color-slate-100: #f4f0ea;
+  --color-slate-200: #e8e2d8;
+  --color-slate-300: #d5cdc0;
+  --color-slate-400: #8f867a;
+  --color-slate-500: #6f665b;
+  --color-slate-600: #544d44;
+  --color-slate-700: #403a33;
+  --color-slate-800: #2a2621;
+  --color-slate-900: #1d1a16;
+  --color-slate-950: #12100d;
+
+  --color-indigo-50: #effcf9;
+  --color-indigo-100: #d3f6ee;
+  --color-indigo-200: #a7ebdd;
+  --color-indigo-300: #6fdcc7;
+  --color-indigo-400: #33c3ae;
+  --color-indigo-500: #14a597;
+  --color-indigo-600: #0b8579;
+  --color-indigo-700: #0a6b62;
+  --color-indigo-800: #0c554f;
+  --color-indigo-900: #0d4642;
+  --color-indigo-950: #052a28;
+
+  --color-ink: #10264d;
+  --color-paper: #fbf8f3;
+}
+
+@utility font-heading { font-family: var(--font-heading); }
+@utility font-sans { font-family: var(--font-sans); }
+@utility font-serif { font-family: var(--font-serif); }
+@utility font-mono { font-family: var(--font-mono); }
+
+@layer base {
+  :root {
+    --bg-page: #fbf8f3;
+    --surface-card: #ffffff;
+    --border-subtle: #e8e2d8;
+    --text-primary: #1d1a16;
+    --text-secondary: #544d44;
+    --color-primary: #0b8579;
+    --color-primary-hover: #0a6b62;
+    color-scheme: light;
+  }
+
+  .dark {
+    --bg-page: #14110e;
+    --surface-card: #1c1814;
+    --border-subtle: #2f2922;
+    --text-primary: #f6f1ea;
+    --text-secondary: #b9aea0;
+    --color-primary: #33c3ae;
+    --color-primary-hover: #6fdcc7;
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  p, li { text-wrap: pretty; }
+
+  code, pre, kbd, .font-mono {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+
+  button, [role="button"], summary, select, a { -webkit-tap-highlight-color: transparent; }
+  button:not(:disabled), [role="button"] { cursor: pointer; }
+  button:disabled { cursor: not-allowed; }
+
+  /* Fokus keyboard yang jelas di semua elemen interaktif */
+  :focus-visible {
+    outline: 2.5px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  ::selection { background: rgba(20, 165, 151, 0.28); }
+
+  input, textarea, select { font: inherit; }
+  /* Cegah zoom otomatis iOS saat fokus input */
+  @media (max-width: 640px) {
+    input, textarea, select { font-size: 16px; }
+  }
+}
+
+/* Komponen bersama */
+@utility field {
+    @apply w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-xs
+      placeholder:text-slate-400 transition focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/25
+      dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100;
+  }
+@utility btn {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold
+      transition active:scale-[0.98] disabled:opacity-50 disabled:active:scale-100;
+  }
+@utility btn-primary {
+    @apply btn bg-indigo-600 text-white shadow-xs hover:bg-indigo-700 dark:bg-indigo-500 dark:text-slate-950 dark:hover:bg-indigo-400;
+  }
+@utility btn-soft {
+    @apply btn border border-slate-200 bg-white text-slate-800 hover:bg-slate-50
+      dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800;
+  }
+@utility btn-ghost {
+    @apply btn text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800;
+  }
+@utility card {
+    @apply rounded-2xl border border-slate-200 bg-white shadow-xs dark:border-slate-800 dark:bg-slate-900/70;
+  }
+@utility chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-medium
+      text-slate-700 dark:border-slate-700 dark:bg-slate-800/60 dark:text-slate-200;
+  }
+
+/* 3D Flashcard Flip Utilities */
+.perspective-1000 { perspective: 1000px; }
+.transform-style-3d { transform-style: preserve-3d; }
+.backface-hidden { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.rotate-y-180 { transform: rotateY(180deg); }
+
+/* Latar hangat untuk hero & kartu penting */
+.paper-grain {
+  background-image:
+    radial-gradient(circle at 20% 0%, rgba(20, 165, 151, 0.14), transparent 45%),
+    radial-gradient(circle at 100% 100%, rgba(251, 182, 41, 0.12), transparent 40%);
+}
+
+/* Animasi masuk halaman */
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+.page-enter { animation: rise-in 0.28s ease-out both; }
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(12px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+.toast-enter { animation: toast-in 0.25s ease-out both; }
+
+/* Hormati preferensi kurangi gerakan */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Area aman perangkat berponi / gesture bar */
+.safe-bottom { padding-bottom: max(0.5rem, env(safe-area-inset-bottom)); }
+
+/* Cetak / simpan PDF */
+@media print {
+  @page { margin: 16mm; }
+  html, body { background: white !important; color: black !important; }
+  .no-print { display: none !important; }
+  .print-only { display: block !important; }
+  .print-page { page-break-after: always; }
+  .card { box-shadow: none !important; break-inside: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+.print-only { display: none; }
+
+/* Scrollbar halus */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(143, 134, 122, 0.35); border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(143, 134, 122, 0.6); }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
