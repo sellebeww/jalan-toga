@@ -165,6 +165,13 @@ describe('store & gamifikasi', () => {
     expect(s.themePref).toBe('system');
     expect(s.writingTarget).toBe(300);
   });
+  it('sanitizeState membuang referensi rusak dari file impor', () => {
+    const ok = { id: 'a', type: 'jurnal', title: 'Judul', year: '2024', container: 'J', authors: [{ family: 'B', given: 'A' }], tags: [], doi: '10.1/x', createdAt: 1 };
+    const s = sanitizeState({
+      references: [ok, { ...ok, id: 'b', title: 123 }, { ...ok, id: 'c', authors: 'x' }, { ...ok, id: 'd', tags: null }, { ...ok, id: 'e', url: {} }, 'teks']
+    });
+    expect(s.references.map((r) => r.id)).toEqual(['a']);
+  });
   it('sanitizeState mempertahankan data valid', () => {
     const s = sanitizeState({ profile: profile(), roadmapChecks: { 'topik.1': true } });
     expect(s.profile?.jurusanId).toBe('kesehatan');

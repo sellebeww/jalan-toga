@@ -111,6 +111,21 @@ export function createDefaultState(): AppState {
 const isObj = (v: unknown): v is Record<string, unknown> =>
   typeof v === 'object' && v !== null && !Array.isArray(v);
 
+const REF_OPTIONAL = ['volume', 'issue', 'pages', 'publisher', 'city', 'edition', 'doi', 'url', 'accessed', 'note'] as const;
+
+function isValidReference(r: unknown): r is AppState['references'][number] {
+  if (!isObj(r)) return false;
+  const str = (k: string) => typeof r[k] === 'string';
+  return (
+    ['id', 'type', 'title', 'year', 'container'].every(str) &&
+    Array.isArray(r.authors) &&
+    r.authors.every((a) => isObj(a) && typeof a.family === 'string' && typeof a.given === 'string') &&
+    Array.isArray(r.tags) &&
+    r.tags.every((t) => typeof t === 'string') &&
+    REF_OPTIONAL.every((k) => r[k] === undefined || str(k))
+  );
+}
+
 /**
  * Gabungkan data tak tepercaya (localStorage / file impor) dengan default.
  * Tipe tiap field dicek supaya data rusak tidak membuat aplikasi crash.
@@ -151,6 +166,8 @@ export function sanitizeState(raw: unknown): AppState {
     }
   }
   if (!['system', 'light', 'dark'].includes(base.themePref)) base.themePref = 'system';
+  // Formatter sitasi mengandalkan tipe field; entri rusak dari file impor dibuang agar halaman Referensi tidak crash.
+  base.references = base.references.filter(isValidReference);
   return base;
 }
 
