@@ -1,6 +1,6 @@
 /* Service worker Jalan Toga: cache app shell + aset statis agar bisa dibuka offline. */
-const VERSION = 'jalan-toga-v1';
-const SHELL = ['./', './index.html', './manifest.webmanifest', './favicon.png', './logo.png', './logo-dark.png', './logo-mark.png'];
+const VERSION = 'jalan-toga-v2';
+const SHELL = ['./', './index.html', './manifest.webmanifest', './favicon.png', './logo.webp', './logo-dark.webp', './logo-mark.webp'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(VERSION).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));

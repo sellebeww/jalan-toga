@@ -89,7 +89,9 @@ const trimPad = (s, pad) => s.trim({ background: CLEAR, threshold: 8 }).extend({
 
 // ---- logo penuh (tanpa latar), dipangkas
 const full = await trimPad(toSharp(px), 24).png().toBuffer();
-await sharp(full).toFile(path.join(PUB, 'logo.png'));
+// Ukuran 3x lebar tampil terbesar (logo w-72 = 288px, ikon 48px).
+const webp = (buf, width, name) => sharp(buf).resize({ width }).webp({ quality: 90, alphaQuality: 100, effort: 6 }).toFile(path.join(PUB, name));
+await webp(full, 864, 'logo.webp');
 
 // ---- ikon saja: komponen terhubung berpusat di kiri-atas
 const fg = new Int32Array(W * H).fill(-1);
@@ -127,7 +129,7 @@ for (let i = 0; i < W * H; i++) {
   if (!(k === -1 && x < 725 && y < 700)) mk[i * 4 + 3] = 0;
 }
 const mark = await trimPad(toSharp(mk), 12).png().toBuffer();
-await sharp(mark).toFile(path.join(PUB, 'logo-mark.png'));
+await webp(mark, 144, 'logo-mark.webp');
 
 // ---- varian mode gelap: navy diterangkan agar terbaca di latar gelap
 const dk = new Uint8ClampedArray(px);
@@ -146,7 +148,7 @@ for (let i = 0; i < W * H; i++) {
   }
 }
 const fullDark = await trimPad(toSharp(dk), 24).png().toBuffer();
-await sharp(fullDark).toFile(path.join(PUB, 'logo-dark.png'));
+await webp(fullDark, 864, 'logo-dark.webp');
 
 // ---- ikon aplikasi
 const CREAM = { r: 251, g: 248, b: 243, alpha: 1 };
@@ -168,7 +170,7 @@ await sharp(mark).resize({ width: 64, height: 64, fit: 'contain', background: CL
 
 // ---- gambar Open Graph 1200x630
 const ogLogo = await sharp(full).resize({ width: 920, height: 440, fit: 'inside' }).toBuffer();
-await sharp({ create: { width: 1200, height: 630, channels: 4, background: CREAM } }).composite([{ input: ogLogo, gravity: 'center' }]).png().toFile(path.join(PUB, 'og-image.png'));
+await sharp({ create: { width: 1200, height: 630, channels: 4, background: CREAM } }).composite([{ input: ogLogo, gravity: 'center' }]).png({ palette: true, quality: 90, compressionLevel: 9, effort: 10 }).toFile(path.join(PUB, 'og-image.png'));
 
 const meta = await sharp(full).metadata();
 console.log('latar:', bg.map(Math.round), '| logo penuh:', meta.width, 'x', meta.height, '| komponen ikon:', isMark.filter(Boolean).length);

@@ -5,14 +5,14 @@ const asset = (name: string) => `${import.meta.env.BASE_URL}${name}`;
 
 /** Ikon Jalan Toga (PNG tanpa latar). */
 export const BrandMark: React.FC<{ className?: string }> = ({ className = 'h-9 w-9' }) => (
-  <img src={asset('logo-mark.png')} alt="" aria-hidden="true" width={64} height={50} decoding="async" className={`${className} object-contain`} />
+  <img src={asset('logo-mark.webp')} alt="" aria-hidden="true" width={144} height={143} decoding="async" className={`${className} object-contain`} />
 );
 
 /** Logo penuh (ikon + nama + tagline) dengan varian terang/gelap. */
 export const BrandLogoFull: React.FC<{ className?: string }> = ({ className = 'w-64' }) => (
   <>
-    <img src={asset('logo.png')} alt="Jalan Toga: dari bingung, sampai wisuda" width={1155} height={597} className={`${className} h-auto dark:hidden`} />
-    <img src={asset('logo-dark.png')} alt="Jalan Toga: dari bingung, sampai wisuda" width={1155} height={597} className={`${className} hidden h-auto dark:block`} />
+    <img src={asset('logo.webp')} alt="Jalan Toga: dari bingung, sampai wisuda" width={864} height={447} className={`${className} h-auto dark:hidden`} />
+    <img src={asset('logo-dark.webp')} alt="Jalan Toga: dari bingung, sampai wisuda" width={864} height={447} className={`${className} hidden h-auto dark:block`} />
   </>
 );
 
