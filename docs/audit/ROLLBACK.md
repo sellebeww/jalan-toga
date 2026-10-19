@@ -20,5 +20,7 @@ Batalkan satu fase saja (jalankan di branch audit):
 | Aset WebP | `db397e5` | `git revert db397e5` |
 | Aksesibilitas WCAG | `5b89118` | `git revert 5b89118` |
 | Validasi impor dan README | `e4064de` | `git revert e4064de` |
+| Dokumen audit | `a6cd32d` | `git revert a6cd32d` |
+| Perbaikan temuan red-team | `50a38e2` | `git revert 50a38e2` |
 
 Repo git dibuat oleh audit karena proyek sebelumnya belum memakai git. Kalau tidak ingin memakai git, folder `.git` di root proyek boleh dibuang; file proyek tidak terpengaruh.

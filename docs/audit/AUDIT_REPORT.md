@@ -45,7 +45,7 @@ Konvensi yang sudah berlaku tetap dipakai, dan memang sudah konsisten: komponen 
 
 - 32 pernyataan import tak terpakai dirapikan (28 file). `noUnusedLocals` diaktifkan di `tsconfig.json` agar tidak muncul lagi.
 - Dependensi `motion` dihapus (tidak di-import di mana pun; `npm ls` menunjukkan bukan peer dependency).
-- `vite`, `@vitejs/plugin-react`, `@tailwindcss/vite`, `@types/canvas-confetti` dipindah ke `devDependencies`. Ikut naik patch: vite 8.3.0→8.3.4, plugin-react 6.1.1→6.1.2.
+- `vite`, `@vitejs/plugin-react`, `@tailwindcss/vite`, `@types/canvas-confetti` dipindah ke `devDependencies`. Versi terpasang tidak berubah; hanya batas bawah rentang di `package.json` yang naik ke versi yang memang sudah terpasang (`vite ^8.3.4`, `@vitejs/plugin-react ^6.1.2`).
 - Duplikasi: logika fokus dialog (ada di `Modal`, salinan tidak lengkap di `SearchModal`, dan tidak ada sama sekali di `GlossaryModal`) disatukan menjadi hook `useDialogFocus` di `src/components/common/Modal.tsx`.
 - Ditambah skrip `typecheck`, `engines.node >=22.12.0`, `.editorconfig`, `.env.example` (`SITE_URL`), dan entri `.gitignore` untuk file editor/sementara.
 - Tidak ada `console.log`, `debugger`, `TODO`, atau `FIXME` yang tertinggal (dicek dengan `grep`).
@@ -54,11 +54,11 @@ Konvensi yang sudah berlaku tetap dipakai, dan memang sudah konsisten: komponen 
 
 | # | Keparahan | Lokasi | Deskripsi | Status |
 |---|---|---|---|---|
-| S1 | Sedang | `src/pages/Referensi.tsx:298` | `href` referensi memakai `r.url` apa adanya. Form memvalidasi `http(s)://`, tapi file cadangan JSON yang diimpor melewati form. React 19 memblokir `javascript:`, namun skema lain tetap lolos. | **Diperbaiki**: tautan hanya dirender untuk `http(s)://`. [TERVERIFIKASI] di browser: referensi `javascript:alert(1)` tidak menghasilkan tautan. |
+| S1 | Sedang | `src/pages/Referensi.tsx:299-300` | `href` referensi memakai `r.url` apa adanya. Form memvalidasi `http(s)://`, tapi file cadangan JSON yang diimpor melewati form. React 19 memblokir `javascript:`, namun skema lain tetap lolos. | **Diperbaiki**: tautan hanya dirender untuk `http(s)://`. [TERVERIFIKASI] di browser: referensi `javascript:alert(1)` tidak menghasilkan tautan. |
 | S2 | Sedang | `index.html` / `vite.config.ts` | Tidak ada Content-Security-Policy, padahal ada `dangerouslySetInnerHTML` (sitasi). | **Diperbaiki**: CSP `<meta>` disisipkan saat build, skrip inline diizinkan lewat hash SHA-256 yang dihitung otomatis. [TERVERIFIKASI] 0 pelanggaran CSP di 22 rute × 4 lebar × 2 tema, dan injeksi skrip inline benar-benar diblokir. |
-| S3 | Rendah | `src/lib/store.ts` `sanitizeState` | Array dari localStorage/file impor tidak divalidasi per elemen. Referensi dengan tipe field salah membuat halaman Referensi crash permanen sampai data dihapus. | **Diperbaiki**: `isValidReference` membuang entri rusak. Tes baru di `lib.test.ts`. [TERVERIFIKASI] di browser: halaman tidak lagi menampilkan ErrorBoundary. |
+| S3 | Rendah | `src/lib/store.ts` `sanitizeState` | Array dari localStorage/file impor tidak divalidasi per elemen. Referensi dengan tipe field salah membuat halaman Referensi crash permanen sampai data dihapus. | **Diperbaiki**: `normalizeReference` membuang entri yang field wajibnya rusak; field opsional berupa angka dikonversi ke string, tipe lain dihapus per field (entri tetap disimpan). Tes baru di `lib.test.ts`. [TERVERIFIKASI] di browser: halaman tidak lagi menampilkan ErrorBoundary. |
 | S4 | Rendah | hosting | `Strict-Transport-Security`, `frame-ancestors`, `X-Content-Type-Options` tidak bisa dipasang lewat `<meta>`. | **Perlu tindakan pengguna** (MANUAL_ACTIONS #1). Contoh header ada di README. |
-| S5 | Info | `src/pages/Referensi.tsx:222,291,363` | `dangerouslySetInnerHTML` untuk sitasi. | Aman: `toHtml` meng-escape `& < >` di setiap segmen (`src/lib/citations.ts:13-14`). [TERVERIFIKASI] judul `<b>…</b>` tampil sebagai teks. |
+| S5 | Info | `src/pages/Referensi.tsx:222,291,364` | `dangerouslySetInnerHTML` untuk sitasi. | Aman: `toHtml` meng-escape `& < >` di setiap segmen (`src/lib/citations.ts:13-14`). [TERVERIFIKASI] judul `<b>…</b>` tampil sebagai teks. |
 | S6 | Info | `localStorage` | Nama, NIM, dan judul skripsi tersimpan di browser tanpa enkripsi. | Sesuai desain (tanpa server, tanpa login). Tidak ada data yang dikirim keluar. |
 | S7 | Info | dependensi | `npm audit`: 0 kerentanan. Lockfile ter-commit, semua paket dari registry npm, tidak ada skrip `pre/post/install`. | OK |
 | S8 | Info | repo | Pemindaian secret di semua file dan diff: 0 temuan. Belum ada riwayat git sebelum audit, jadi tidak ada riwayat yang perlu diperiksa. | OK |
@@ -100,7 +100,7 @@ Audit sistem desain (hanya dilaporkan, tidak diubah; lihat DECISIONS D6):
 |---|---|
 | Token warna | Lengkap di `@theme` (`slate`/`indigo` di-remap ke palet "Kertas & Tinta", `ink`, `paper`) |
 | Komponen | `btn`, `btn-primary`, `btn-soft`, `btn-ghost`, `card`, `chip`, `field` |
-| Penyimpangan | 6 komponen alat warisan memakai `stone-*` (239 kelas) dan hex `dark:bg-[#171A21]` (8×) di luar token; ~126 dari 217 tombol ditata ad-hoc; 107 ukuran teks arbitrer `text-[10px]`/`[11px]` |
+| Penyimpangan | 5 komponen alat warisan (PosterChecklist, ThesisAlignmentChecklist, ChartSelector, DeductiveInductiveSorter, IEEECitationBuilder) memakai `stone-*` (233 kelas); hex `dark:bg-[#171A21]` (8×, di 4 file) di luar token; sekitar 126 dari 217 `<button>` tidak memakai utility `btn-*` (perkiraan berdasarkan grep); 107 ukuran teks arbitrer `text-[10px]`/`[11px]` |
 
 Performa: total JS 1,395 MB (tidak berubah). Chunk lazy terbesar adalah `Belajar` (342 kB) dan `comparisons` (311 kB); keduanya data konten yang dimuat saat dibutuhkan. Saran lanjutan ada di bagian 10.
 
@@ -121,10 +121,25 @@ Semua angka "Akhir" berasal dari clone bersih branch ini. Skrip pemeriksa (Playw
 
 Tidak tersedia: ESLint/Prettier (tidak ada di proyek; `typescript-eslint` belum mendukung TS 7 native), dan pengujian e2e bawaan proyek.
 
+### Verifikasi independen (red-team)
+
+Sub-agent terpisah meninjau ulang semua klaim dan diff tanpa mengubah file. Ia mengonfirmasi ukuran aset (WebP bisa dibuat ulang byte-identik), angka bundle (dengan membangun baseline sendiri), daftar file terhapus, hash commit, keamanan CSP, dan cascade aturan kontras. Temuannya beserta tindak lanjut (commit `50a38e2`):
+
+| Temuan red-team | Tindakan |
+|---|---|
+| `line-clamp` di 3 tempat (Glosarium, Profil) tidak berfungsi karena kelas `block` hasil konversi `div`→`span` menimpa `display` | Diperbaiki. [TERVERIFIKASI] tinggi teks kembali 2 baris |
+| Satu Esc menutup dua dialog yang bertumpuk (mis. Ctrl+K di atas Glosarium) | Diperbaiki dengan stack dialog di `useDialogFocus`. [TERVERIFIKASI] Esc pertama hanya menutup dialog teratas, fokus tetap di dialog bawah |
+| Referensi dengan field opsional bertipe salah dibuang seluruhnya tanpa pemberitahuan | Diubah menjadi normalisasi per field (lihat S3) |
+| Aturan kontras bergantung pada variabel warna yang hanya dipancarkan Tailwind bila dipakai | Ditambah fallback hex |
+| Klaim kenaikan versi, jumlah komponen/kelas `stone`, dan nomor baris S1/S5 kurang tepat | Laporan dikoreksi |
+| Indentasi atribut di tombol baru `ProfileView` | Dirapikan |
+
+Catatan tersisa dari red-team: selektor pengecualian `[class*='dark:text-']` juga cocok dengan kelas ukuran seperti `dark:text-xs`. Saat ini tidak ada elemen seperti itu; bila nanti muncul, warna teks redupnya di mode gelap tidak akan di-override.
+
 ## 10. Masalah tersisa dan keputusan manual
 
 Sengaja tidak diubah:
-1. **Konsolidasi palet alat** (`stone-*`, `#171A21`, tombol ad-hoc). Mengubah tampilan 6 komponen, jadi butuh persetujuan.
+1. **Konsolidasi palet alat** (`stone-*`, `#171A21`, tombol ad-hoc). Mengubah tampilan 5 komponen, jadi butuh persetujuan.
 2. **ESLint/Prettier**: tunggu dukungan `typescript-eslint` untuk TS 7, atau pasang Biome. Format ulang massal juga mengganggu riwayat.
 3. **`IEEECitationBuilder`**: kota penerbit selalu "Jakarta" karena belum ada inputnya (fitur kecil, bukan bug keamanan).
 4. **`StudyView`**: prop `onNavigateToTools` dikirim `Belajar` tapi tidak pernah dipakai, dan tidak ada UI yang membutuhkannya. Bisa dihapus atau dijadikan tombol "Buka alat".

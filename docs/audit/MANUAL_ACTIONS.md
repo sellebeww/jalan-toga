@@ -23,7 +23,7 @@ Hanya berisi hal yang tidak bisa dikerjakan agent. Tidak ada yang memblokir rili
 
 ## 2. Putuskan konsolidasi palet komponen alat (prioritas sedang, ~5 menit keputusan)
 
-**Kenapa:** 6 komponen di `src/components/tools/` memakai palet `stone-*` dan hex `#171A21` di luar token "Kertas & Tinta". Menyatukannya akan sedikit mengubah tampilan, jadi butuh persetujuanmu.
+**Kenapa:** 5 komponen di `src/components/tools/` memakai palet `stone-*` (dan 4 di antaranya hex `#171A21`) di luar token "Kertas & Tinta". Menyatukannya akan sedikit mengubah tampilan, jadi butuh persetujuanmu.
 
 **Pilihan:** (a) satukan ke token `slate` dan `--surface-card` (disarankan; tampilan alat jadi hangat seperti halaman lain), atau (b) biarkan.
 
