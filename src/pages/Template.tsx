@@ -84,7 +84,7 @@ function Templates() {
                 </button>
               </div>
             </div>
-            <pre className="max-h-[70vh] overflow-auto whitespace-pre-wrap rounded-xl bg-slate-100 p-4 font-mono text-[13px] leading-relaxed dark:bg-slate-800/70">{text}</pre>
+            <pre tabIndex={0} aria-label="Pratinjau isi template" className="max-h-[70vh] overflow-auto whitespace-pre-wrap rounded-xl bg-slate-100 p-4 font-mono text-[13px] leading-relaxed dark:bg-slate-800/70">{text}</pre>
           </div>
           <div className="mt-4">
             <CampusNote>Ini kerangka umum. Kop surat, nomor surat, dan format resmi mengikuti ketentuan kampus dan instansi tujuan. Minta pembimbing mengecek sebelum digunakan.</CampusNote>

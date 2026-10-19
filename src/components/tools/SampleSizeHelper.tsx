@@ -45,10 +45,10 @@ export const SampleSizeHelper: React.FC = () => {
               <Calculator className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
               <span>1. Formula Harry King (Slide Modul)</span>
             </div>
-            <label className="text-xs text-slate-600 dark:text-slate-400 block mb-1">
+            <label htmlFor="sample-size-helper-1" className="text-xs text-slate-600 dark:text-slate-400 block mb-1">
               Jumlah Populasi (N):
             </label>
-            <input
+            <input id="sample-size-helper-1"
               type="number"
               min="10"
               value={popN}
@@ -80,10 +80,10 @@ export const SampleSizeHelper: React.FC = () => {
               <BookOpen className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
               <span>2. Saran Roscoe (Multivariate)</span>
             </div>
-            <label className="text-xs text-slate-600 dark:text-slate-400 block mb-1">
+            <label htmlFor="sample-size-helper-2" className="text-xs text-slate-600 dark:text-slate-400 block mb-1">
               Jumlah Variabel Penelitian (Independen + Dependen):
             </label>
-            <input
+            <input id="sample-size-helper-2"
               type="number"
               min="1"
               max="50"
@@ -148,7 +148,7 @@ export const SampleSizeHelper: React.FC = () => {
         <h5 className="font-heading font-semibold text-xs uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2">
           Rujukan Cepat Tabel Isaac & Michael Berbagai Ukuran Populasi (N)
         </h5>
-        <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800">
+        <div tabIndex={0} role="region" aria-label="Tabel Isaac & Michael" className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800">
           <table className="w-full text-left text-xs font-mono border-collapse">
             <thead>
               <tr className="bg-slate-100 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300">

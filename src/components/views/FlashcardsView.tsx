@@ -87,7 +87,7 @@ export const FlashcardsView: React.FC = () => {
               <span className="font-heading font-bold text-xs uppercase tracking-wide">
                 {b.label}
               </span>
-              <span className="font-mono text-xs font-semibold opacity-70">
+              <span className="font-mono text-xs font-semibold opacity-90">
                 {b.interval}
               </span>
             </div>
@@ -95,7 +95,7 @@ export const FlashcardsView: React.FC = () => {
               <span className="text-2xl font-extrabold font-mono tabular-nums">
                 {b.count}
               </span>
-              <span className="text-[11px] opacity-70">kartu</span>
+              <span className="text-[11px] opacity-90">kartu</span>
             </div>
           </div>
         ))}

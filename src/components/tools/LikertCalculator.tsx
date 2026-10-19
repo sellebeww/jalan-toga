@@ -79,11 +79,11 @@ export const LikertCalculator: React.FC = () => {
       {/* Input Fields */}
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-6">
         <div className="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40">
-          <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 block mb-1">
+          <label htmlFor="likert-calculator-1" className="text-xs font-semibold text-slate-700 dark:text-slate-300 block mb-1">
             SS (Bobot 5)
           </label>
           <span className="text-[10px] text-slate-400 dark:text-slate-500 block mb-1">Sangat Setuju</span>
-          <input
+          <input id="likert-calculator-1"
             type="number"
             min="0"
             value={inputs.ss}
@@ -93,11 +93,11 @@ export const LikertCalculator: React.FC = () => {
         </div>
 
         <div className="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40">
-          <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 block mb-1">
+          <label htmlFor="likert-calculator-2" className="text-xs font-semibold text-slate-700 dark:text-slate-300 block mb-1">
             ST (Bobot 4)
           </label>
           <span className="text-[10px] text-slate-400 dark:text-slate-500 block mb-1">Setuju</span>
-          <input
+          <input id="likert-calculator-2"
             type="number"
             min="0"
             value={inputs.st}
@@ -107,11 +107,11 @@ export const LikertCalculator: React.FC = () => {
         </div>
 
         <div className="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40">
-          <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 block mb-1">
+          <label htmlFor="likert-calculator-3" className="text-xs font-semibold text-slate-700 dark:text-slate-300 block mb-1">
             RG (Bobot 3)
           </label>
           <span className="text-[10px] text-slate-400 dark:text-slate-500 block mb-1">Ragu-ragu</span>
-          <input
+          <input id="likert-calculator-3"
             type="number"
             min="0"
             value={inputs.rg}
@@ -121,11 +121,11 @@ export const LikertCalculator: React.FC = () => {
         </div>
 
         <div className="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40">
-          <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 block mb-1">
+          <label htmlFor="likert-calculator-4" className="text-xs font-semibold text-slate-700 dark:text-slate-300 block mb-1">
             TS (Bobot 2)
           </label>
           <span className="text-[10px] text-slate-400 dark:text-slate-500 block mb-1">Tidak Setuju</span>
-          <input
+          <input id="likert-calculator-4"
             type="number"
             min="0"
             value={inputs.ts}
@@ -135,11 +135,11 @@ export const LikertCalculator: React.FC = () => {
         </div>
 
         <div className="col-span-2 sm:col-span-1 p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40">
-          <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 block mb-1">
+          <label htmlFor="likert-calculator-5" className="text-xs font-semibold text-slate-700 dark:text-slate-300 block mb-1">
             STS (Bobot 1)
           </label>
           <span className="text-[10px] text-slate-400 dark:text-slate-500 block mb-1">Sangat Tidak Setuju</span>
-          <input
+          <input id="likert-calculator-5"
             type="number"
             min="0"
             value={inputs.sts}
@@ -202,19 +202,19 @@ export const LikertCalculator: React.FC = () => {
         </div>
 
         <div className="relative h-6 w-full rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden flex">
-          <div className="h-full w-1/5 bg-rose-500/80 text-[9px] text-white flex items-center justify-center font-bold">
+          <div className="h-full w-1/5 bg-rose-500 text-[9px] text-slate-950 flex items-center justify-center font-bold">
             STS
           </div>
-          <div className="h-full w-1/5 bg-orange-500/80 text-[9px] text-white flex items-center justify-center font-bold">
+          <div className="h-full w-1/5 bg-orange-500 text-[9px] text-slate-950 flex items-center justify-center font-bold">
             TS
           </div>
-          <div className="h-full w-1/5 bg-amber-500/80 text-[9px] text-white flex items-center justify-center font-bold">
+          <div className="h-full w-1/5 bg-amber-500 text-[9px] text-slate-950 flex items-center justify-center font-bold">
             RG
           </div>
-          <div className="h-full w-1/5 bg-lime-600/80 text-[9px] text-white flex items-center justify-center font-bold">
+          <div className="h-full w-1/5 bg-lime-600 text-[9px] text-slate-950 flex items-center justify-center font-bold">
             ST
           </div>
-          <div className="h-full w-1/5 bg-emerald-600/80 text-[9px] text-white flex items-center justify-center font-bold">
+          <div className="h-full w-1/5 bg-emerald-600 text-[9px] text-slate-950 flex items-center justify-center font-bold">
             SS
           </div>
 

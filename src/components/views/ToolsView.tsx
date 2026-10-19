@@ -109,7 +109,7 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ initialToolId }) => {
                       }`}
                     >
                       <div className={`p-1.5 rounded-lg mt-0.5 ${
-                        isActive ? 'bg-indigo-700 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'
+                        isActive ? 'bg-indigo-700 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-300'
                       }`}>
                         <Icon className="w-4 h-4" />
                       </div>
@@ -117,7 +117,7 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ initialToolId }) => {
                         <div className="font-heading font-semibold text-xs leading-tight">
                           {t.name}
                         </div>
-                        <div className={`text-[10px] truncate mt-0.5 ${isActive ? 'text-indigo-100' : 'text-slate-400 dark:text-slate-500'}`}>
+                        <div className={`text-[10px] truncate mt-0.5 ${isActive ? 'text-white' : 'text-slate-400 dark:text-slate-500'}`}>
                           {t.desc}
                         </div>
                       </div>

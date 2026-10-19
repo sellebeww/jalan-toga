@@ -3,6 +3,7 @@ import { allGlossaryTerms } from '../../data/glossary';
 import { GlossaryTerm } from '../../types';
 import { Search, X, BookMarked, BookOpen } from 'lucide-react';
 import { allModules } from '../../data/modules';
+import { useDialogFocus } from '../common/Modal';
 
 interface GlossaryModalProps {
   isOpen: boolean;
@@ -47,11 +48,14 @@ export const GlossaryModal: React.FC<GlossaryModalProps> = ({ isOpen, onClose, i
     });
   }, [searchQuery, selectedModule, selectedLetter]);
 
+  const dialogRef = React.useRef<HTMLDivElement>(null);
+  useDialogFocus(dialogRef, isOpen, onClose);
+
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/70 backdrop-blur-xs">
-      <div className="relative w-full max-w-5xl h-[88vh] bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+      <div ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby="glosarium-judul" className="relative w-full max-w-5xl h-[88vh] bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-150">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-850 dark:bg-slate-900/90">
           <div className="flex items-center gap-3">
@@ -59,7 +63,7 @@ export const GlossaryModal: React.FC<GlossaryModalProps> = ({ isOpen, onClose, i
               <BookMarked className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="font-heading font-bold text-lg text-slate-900 dark:text-slate-100 flex items-center gap-2">
+              <h3 id="glosarium-judul" className="font-heading font-bold text-lg text-slate-900 dark:text-slate-100 flex items-center gap-2">
                 Glosarium & Kamus Riset TI
                 <span className="text-xs px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950/70 text-amber-800 dark:text-amber-300 font-mono font-medium">
                   {allGlossaryTerms.length} Istilah
@@ -72,6 +76,7 @@ export const GlossaryModal: React.FC<GlossaryModalProps> = ({ isOpen, onClose, i
           </div>
           <button
             onClick={onClose}
+            aria-label="Tutup glosarium"
             className="p-2 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer"
           >
             <X className="w-5 h-5" />
@@ -108,7 +113,7 @@ export const GlossaryModal: React.FC<GlossaryModalProps> = ({ isOpen, onClose, i
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition cursor-pointer ${
                   selectedModule === 'all'
                     ? 'bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900'
-                    : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+                    : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
                 }`}
               >
                 Semua Modul
@@ -120,7 +125,7 @@ export const GlossaryModal: React.FC<GlossaryModalProps> = ({ isOpen, onClose, i
                   className={`px-2.5 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition cursor-pointer ${
                     selectedModule === m.slug
                       ? 'bg-amber-600 text-white'
-                      : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+                      : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
                   }`}
                 >
                   M{m.number}
@@ -133,9 +138,10 @@ export const GlossaryModal: React.FC<GlossaryModalProps> = ({ isOpen, onClose, i
           <div className="flex items-center gap-1 overflow-x-auto text-[11px] font-mono py-1">
             <button
               onClick={() => setSelectedLetter('all')}
-              className={`px-2 py-0.5 rounded transition cursor-pointer ${
+              aria-pressed={selectedLetter === 'all'}
+              className={`min-h-6 px-2 py-0.5 rounded transition cursor-pointer ${
                 selectedLetter === 'all'
-                  ? 'bg-amber-500 text-white font-bold'
+                  ? 'bg-amber-700 text-white font-bold'
                   : 'text-slate-500 hover:text-slate-900 dark:hover:text-slate-200'
               }`}
             >
@@ -145,9 +151,10 @@ export const GlossaryModal: React.FC<GlossaryModalProps> = ({ isOpen, onClose, i
               <button
                 key={letter}
                 onClick={() => setSelectedLetter(letter)}
-                className={`px-1.5 py-0.5 rounded transition cursor-pointer ${
+                aria-pressed={selectedLetter === letter}
+                className={`min-h-6 min-w-6 px-1.5 py-0.5 rounded transition cursor-pointer ${
                   selectedLetter === letter
-                    ? 'bg-amber-500 text-white font-bold'
+                    ? 'bg-amber-700 text-white font-bold'
                     : 'text-slate-500 hover:text-slate-900 dark:hover:text-slate-200'
                 }`}
               >
@@ -169,32 +176,34 @@ export const GlossaryModal: React.FC<GlossaryModalProps> = ({ isOpen, onClose, i
               filteredTerms.map((item) => {
                 const isSelected = activeTerm?.id === item.id;
                 return (
-                  <div
+                  <button
+                    type="button"
                     key={item.id}
                     onClick={() => setActiveTerm(item)}
-                    className={`p-3 rounded-xl cursor-pointer transition ${
+                    aria-pressed={isSelected}
+                    className={`block w-full text-left p-3 rounded-xl cursor-pointer transition ${
                       isSelected
                         ? 'bg-amber-50/80 dark:bg-amber-950/40 border border-amber-200/60 dark:border-amber-800/60'
                         : 'hover:bg-slate-50 dark:hover:bg-slate-800/50'
                     }`}
                   >
-                    <div className="flex items-center justify-between gap-1 mb-0.5">
+                    <span className="flex items-center justify-between gap-1 mb-0.5">
                       <span className="font-heading font-semibold text-sm text-slate-900 dark:text-slate-100">
                         {item.term}
                       </span>
-                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400">
+                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-300">
                         {item.moduleSlug.replace('modul-', 'M')}
                       </span>
-                    </div>
+                    </span>
                     {item.english && (
-                      <p className="text-xs text-slate-400 dark:text-slate-500 italic mb-1 font-serif">
+                      <span className="block text-xs text-slate-400 dark:text-slate-500 italic mb-1 font-serif">
                         {item.english}
-                      </p>
+                      </span>
                     )}
-                    <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2">
+                    <span className="block text-xs text-slate-500 dark:text-slate-400 line-clamp-2">
                       {item.meaning}
-                    </p>
-                  </div>
+                    </span>
+                  </button>
                 );
               })
             )}

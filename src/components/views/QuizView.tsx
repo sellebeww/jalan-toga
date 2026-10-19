@@ -185,7 +185,7 @@ export const QuizView: React.FC = () => {
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer ${
                   activeComparisonModule === 'all'
                     ? 'bg-indigo-600 text-white shadow-xs'
-                    : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+                    : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-200'
                 }`}
               >
                 Semua
@@ -197,7 +197,7 @@ export const QuizView: React.FC = () => {
                   className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer ${
                     activeComparisonModule === m.slug
                       ? 'bg-indigo-600 text-white shadow-xs'
-                      : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+                      : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-200'
                   }`}
                 >
                   M{m.number}

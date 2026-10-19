@@ -323,7 +323,7 @@ function SavedTab() {
               Periksa judul
             </Link>
             <CopyButton text={t.judul} size="sm" className="min-h-10" />
-            <button className="btn-ghost min-h-10 text-sm text-rose-600" aria-label={`Hapus topik ${t.judul}`} onClick={() => appStore.deleteTopic(t.id)}>
+            <button className="btn-ghost min-h-10 text-sm text-rose-600 dark:text-rose-400" aria-label={`Hapus topik ${t.judul}`} onClick={() => appStore.deleteTopic(t.id)}>
               <Trash2 aria-hidden="true" className="h-4 w-4" /> Hapus
             </button>
           </div>

@@ -305,7 +305,7 @@ function LibraryTab({ style }: { style: CitationStyle }) {
                     <Pencil aria-hidden="true" className="h-3.5 w-3.5" /> Ubah
                   </button>
                   <button
-                    className="btn-ghost min-h-10 px-3 text-xs text-rose-600"
+                    className="btn-ghost min-h-10 px-3 text-xs text-rose-600 dark:text-rose-400"
                     onClick={async () => {
                       if (await confirmAction({ title: 'Hapus referensi ini?', body: r.title, confirmLabel: 'Hapus', danger: true })) appStore.deleteReference(r.id);
                     }}

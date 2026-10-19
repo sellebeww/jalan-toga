@@ -352,7 +352,7 @@ export const QuizRunner: React.FC<QuizRunnerProps> = ({
                 } ${isConfirmed ? 'cursor-default' : ''}`}
               >
                 <div className="flex items-center gap-3">
-                  <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+                  <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
                     {String.fromCharCode(65 + oIdx)}
                   </span>
                   <span>{opt}</span>

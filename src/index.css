@@ -53,6 +53,7 @@
     --border-subtle: #e8e2d8;
     --text-primary: #1d1a16;
     --text-secondary: #544d44;
+    --text-muted: #6f665b;
     --color-primary: #0b8579;
     --color-primary-hover: #0a6b62;
     color-scheme: light;
@@ -64,6 +65,7 @@
     --border-subtle: #2f2922;
     --text-primary: #f6f1ea;
     --text-secondary: #b9aea0;
+    --text-muted: #9d9487;
     --color-primary: #33c3ae;
     --color-primary-hover: #6fdcc7;
     color-scheme: dark;
@@ -201,3 +203,15 @@
 ::-webkit-scrollbar-thumb:hover { background: rgba(143, 134, 122, 0.6); }
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { scrollbar-width: none; }
+
+/* Kontras WCAG AA (4.5:1) tanpa mengganti palet: beberapa utility teks dipakai di
+   latar yang membuatnya < 4.5:1 (terang: tint *-50, gelap: kartu slate-800).
+   :where() menjaga spesifisitas setara utility biasa, jadi hover:/dark:text-* tetap menang. */
+@layer utilities {
+  :where(html:not(.dark)) :is(.text-slate-400, .text-stone-400, .text-stone-500) { color: var(--text-muted); }
+  :where(html:not(.dark)) :is(.text-indigo-500, .text-indigo-600) { color: var(--color-indigo-700); }
+  :where(html:not(.dark)) .text-emerald-600 { color: var(--color-emerald-700); }
+  :where(html:not(.dark)) .text-teal-600 { color: var(--color-teal-700); }
+  :where(.dark) :is(.text-slate-400, .text-slate-500, .text-stone-400, .text-stone-500):where(:not([class*='dark:text-'])),
+  :where(.dark) :is(.dark\:text-slate-400, .dark\:text-slate-500, .dark\:text-stone-400, .dark\:text-stone-500) { color: var(--text-muted); }
+}

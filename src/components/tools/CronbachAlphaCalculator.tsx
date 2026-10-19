@@ -46,10 +46,10 @@ export const CronbachAlphaCalculator: React.FC = () => {
         {/* Form Inputs */}
         <div className="space-y-4">
           <div>
-            <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 block mb-1">
+            <label htmlFor="cronbach-alpha-calculator-1" className="text-xs font-semibold text-slate-700 dark:text-slate-300 block mb-1">
               Jumlah Butir Item Pertanyaan (k):
             </label>
-            <input
+            <input id="cronbach-alpha-calculator-1"
               type="number"
               min="2"
               value={k}
@@ -60,10 +60,10 @@ export const CronbachAlphaCalculator: React.FC = () => {
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 block mb-1">
+            <label htmlFor="cronbach-alpha-calculator-2" className="text-xs font-semibold text-slate-700 dark:text-slate-300 block mb-1">
               Jumlah Varians Butir Item (Σvar(xj)):
             </label>
-            <input
+            <input id="cronbach-alpha-calculator-2"
               type="number"
               step="0.01"
               min="0"
@@ -75,10 +75,10 @@ export const CronbachAlphaCalculator: React.FC = () => {
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 block mb-1">
+            <label htmlFor="cronbach-alpha-calculator-3" className="text-xs font-semibold text-slate-700 dark:text-slate-300 block mb-1">
               Varians Skor Total Responden (var(x0)):
             </label>
-            <input
+            <input id="cronbach-alpha-calculator-3"
               type="number"
               step="0.01"
               min="0.01"

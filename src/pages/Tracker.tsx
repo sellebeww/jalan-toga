@@ -124,7 +124,7 @@ function TaskCard({ t, idx }: { t: Task; idx: number }) {
             <ChevronRight aria-hidden="true" className="h-4 w-4" />
           </button>
         </div>
-        <button className="btn-ghost h-9 min-h-9 w-9 px-0 text-rose-600" aria-label={`Hapus tugas "${t.title}"`} onClick={() => appStore.deleteTask(t.id)}>
+        <button className="btn-ghost h-9 min-h-9 w-9 px-0 text-rose-600 dark:text-rose-400" aria-label={`Hapus tugas "${t.title}"`} onClick={() => appStore.deleteTask(t.id)}>
           <Trash2 aria-hidden="true" className="h-4 w-4" />
         </button>
       </div>
@@ -273,7 +273,7 @@ function WeeklyTab() {
                       {w.text}
                     </CheckRow>
                   </div>
-                  <button className="btn-ghost h-9 min-h-9 w-9 px-0 text-rose-600" aria-label={`Hapus target "${w.text}"`} onClick={() => appStore.deleteWeeklyTarget(w.id)}>
+                  <button className="btn-ghost h-9 min-h-9 w-9 px-0 text-rose-600 dark:text-rose-400" aria-label={`Hapus target "${w.text}"`} onClick={() => appStore.deleteWeeklyTarget(w.id)}>
                     <Trash2 aria-hidden="true" className="h-4 w-4" />
                   </button>
                 </li>
@@ -396,7 +396,7 @@ function DeadlineTab() {
                 </div>
                 {!d.done && <Tag tone={left < 0 ? 'bad' : left <= 3 ? 'warn' : 'neutral'}>{relativeDaysLabel(d.date)}</Tag>}
                 <button
-                  className="btn-ghost h-9 min-h-9 w-9 px-0 text-rose-600"
+                  className="btn-ghost h-9 min-h-9 w-9 px-0 text-rose-600 dark:text-rose-400"
                   aria-label={`Hapus deadline "${d.title}"`}
                   onClick={async () => {
                     if (await confirmAction({ title: 'Hapus deadline ini?', body: d.title, confirmLabel: 'Hapus', danger: true })) appStore.deleteDeadline(d.id);

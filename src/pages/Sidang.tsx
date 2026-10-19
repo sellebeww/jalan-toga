@@ -289,7 +289,7 @@ function Session({ questions, seconds, mode, onExit, onRestart }: { questions: D
         <div className="flex-1">
           <Tag tone="accent">{scopeLabels[q.scope]}</Tag>
           <h2 className="mt-2 font-heading text-2xl font-bold leading-snug sm:text-[28px]">{q.tanya}</h2>
-          {left === 0 && <p className="mt-2 text-sm font-semibold text-rose-600">Waktu habis. Dalam sidang sungguhan, rangkum jawabanmu dengan satu kalimat penutup.</p>}
+          {left === 0 && <p className="mt-2 text-sm font-semibold text-rose-600 dark:text-rose-400">Waktu habis. Dalam sidang sungguhan, rangkum jawabanmu dengan satu kalimat penutup.</p>}
         </div>
       </div>
 

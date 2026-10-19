@@ -114,7 +114,7 @@ export const SamplingClassifier: React.FC = () => {
                   </button>
                   <button
                     onClick={() => handleMove(item, 'nonprobability')}
-                    className="px-2 py-1 rounded bg-teal-600 hover:bg-teal-700 text-white font-medium text-[10px] cursor-pointer transition"
+                    className="px-2 py-1 rounded bg-teal-700 hover:bg-teal-800 text-white font-medium text-[10px] cursor-pointer transition"
                   >
                     + Nonprobability
                   </button>
