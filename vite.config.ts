@@ -1,5 +1,6 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
+import { createHash } from 'node:crypto';
 import path from 'path';
 import { defineConfig, loadEnv, type Plugin } from 'vite';
 
@@ -19,11 +20,41 @@ function sitemap(siteUrl: string | undefined): Plugin {
   };
 }
 
+/** CSP via <meta> hanya untuk build (dev server butuh skrip inline React Refresh). Skrip inline diizinkan lewat hash. */
+function csp(): Plugin {
+  return {
+    name: 'jalan-toga-csp',
+    apply: 'build',
+    transformIndexHtml: {
+      order: 'post',
+      handler(html) {
+        const hashes = [...html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g)]
+          .map((m) => `'sha256-${createHash('sha256').update(m[1]).digest('base64')}'`)
+          .join(' ');
+        const policy = [
+          "default-src 'self'",
+          `script-src 'self' ${hashes}`,
+          "style-src 'self' 'unsafe-inline'",
+          "img-src 'self' data: blob:",
+          "font-src 'self' data:",
+          "connect-src 'self'",
+          "worker-src 'self'",
+          "manifest-src 'self'",
+          "object-src 'none'",
+          "base-uri 'self'",
+          "form-action 'none'"
+        ].join('; ');
+        return html.replace(/<meta charset="UTF-8" \/>/, `$&\n    <meta http-equiv="Content-Security-Policy" content="${policy}" />`);
+      }
+    }
+  };
+}
+
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   return {
     base: './',
-    plugins: [react(), tailwindcss(), sitemap(env.SITE_URL)],
+    plugins: [react(), tailwindcss(), sitemap(env.SITE_URL), csp()],
     resolve: { alias: { '@': path.resolve(import.meta.dirname, '.') } },
     test: { environment: 'jsdom', globals: true, include: ['src/**/*.test.ts'] }
   };

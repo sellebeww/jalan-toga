@@ -295,7 +295,8 @@ function LibraryTab({ style }: { style: CitationStyle }) {
                 <div className="mt-3 flex flex-wrap gap-2">
                   <CopyButton text={toPlain(segs)} html={toHtml(segs)} label="Salin sitasi" size="sm" className="min-h-10" />
                   <CopyButton text={formatInText(r, style, references.length - references.indexOf(r))} label="Salin dalam teks" size="sm" className="min-h-10" />
-                  {(r.doi || r.url) && (
+                  {/* url bisa berasal dari file impor yang melewati validasi form, jadi cek ulang skemanya */}
+                  {(r.doi || (typeof r.url === 'string' && /^https?:\/\//i.test(r.url))) && (
                     <a className="btn-soft min-h-10 px-3 text-xs" href={r.doi ? `https://doi.org/${r.doi.replace(/^https?:\/\/(dx\.)?doi\.org\//i, '')}` : r.url} target="_blank" rel="noopener noreferrer">
                       <ExternalLink aria-hidden="true" className="h-3.5 w-3.5" /> Buka sumber
                     </a>
