@@ -3,9 +3,12 @@ import { Link } from '../../app/router';
 
 const asset = (name: string) => `${import.meta.env.BASE_URL}${name}`;
 
-/** Ikon Jalan Toga (PNG tanpa latar). */
+/** Ikon Jalan Toga tanpa latar; varian gelap topinya terang agar tetap terlihat. */
 export const BrandMark: React.FC<{ className?: string }> = ({ className = 'h-9 w-9' }) => (
-  <img src={asset('logo-mark.webp')} alt="" aria-hidden="true" width={144} height={143} decoding="async" className={`${className} object-contain`} />
+  <>
+    <img src={asset('logo-mark.webp')} alt="" aria-hidden="true" width={144} height={143} decoding="async" className={`${className} object-contain dark:hidden`} />
+    <img src={asset('logo-mark-dark.webp')} alt="" aria-hidden="true" width={144} height={143} decoding="async" className={`${className} hidden object-contain dark:block`} />
+  </>
 );
 
 /** Logo penuh (ikon + nama + tagline) dengan varian terang/gelap. */
@@ -18,7 +21,7 @@ export const BrandLogoFull: React.FC<{ className?: string }> = ({ className = 'w
 
 export const Brand: React.FC<{ compact?: boolean }> = ({ compact }) => (
   <Link to="/" className="flex items-center gap-2.5 rounded-xl" aria-label="Jalan Toga, ke beranda">
-    <span className="rounded-xl dark:bg-[#fbf8f3] dark:px-1 dark:py-0.5"><BrandMark className="h-10 w-12" /></span>
+    <BrandMark className="h-10 w-12" />
     {!compact && (
       <span className="leading-tight">
         <span className="block font-heading text-[19px] font-extrabold tracking-tight">

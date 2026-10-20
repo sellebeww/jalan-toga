@@ -5,6 +5,7 @@ interface ConfirmRequest {
   title: string;
   body?: string;
   confirmLabel?: string;
+  cancelLabel?: string;
   danger?: boolean;
   resolve: (ok: boolean) => void;
 }
@@ -46,7 +47,7 @@ export const ConfirmHost: React.FC = () => {
       footer={
         <>
           <button type="button" className="btn-soft" onClick={() => close(false)}>
-            Batal
+            {req?.cancelLabel ?? 'Batal'}
           </button>
           <button
             type="button"

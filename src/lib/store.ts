@@ -28,6 +28,7 @@ export interface AppState {
   themePref: ThemePref;
   studyMode: 'paham' | 'hafal';
   remindersOn: boolean;
+  tourDone: boolean;
 
   // --- Profil & roadmap
   profile: Profile | null;
@@ -79,6 +80,7 @@ export function createDefaultState(): AppState {
     themePref: 'system',
     studyMode: 'paham',
     remindersOn: false,
+    tourDone: false,
     profile: null,
     roadmapChecks: {},
     babStatus: {},
@@ -526,7 +528,11 @@ export const appStore = {
     if (!isObj(parsed) || parsed.app !== 'pendamping-skripsi' || !isObj(parsed.state)) {
       throw new Error('File ini bukan cadangan Jalan Toga.');
     }
-    const next = sanitizeState(parsed.state);
+    appStore.replaceState(parsed.state);
+  },
+  /** Ganti seluruh state dari sumber luar (cadangan atau cloud) setelah divalidasi. */
+  replaceState(raw: unknown) {
+    const next = sanitizeState(raw);
     applyTheme(next.themePref);
     commit(next);
   },

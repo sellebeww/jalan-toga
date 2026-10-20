@@ -200,7 +200,8 @@ export function Segmented<T extends string>({
       aria-label={ariaLabel}
       className={cn(
         'inline-flex max-w-full gap-1 rounded-2xl border border-slate-200 bg-slate-100 p-1 dark:border-slate-800 dark:bg-slate-900',
-        scrollable && 'no-scrollbar overflow-x-auto',
+        // pudar di kanan memberi tanda tab bisa digeser; pr-8 agar tab terakhir utuh saat digeser habis
+        scrollable && 'no-scrollbar overflow-x-auto pr-8 [mask-image:linear-gradient(to_right,black_calc(100%-2rem),transparent)]',
         className
       )}
     >

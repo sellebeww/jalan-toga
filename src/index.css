@@ -1,29 +1,28 @@
-@import "@fontsource-variable/fraunces/wght.css";
-@import "@fontsource-variable/plus-jakarta-sans/wght.css";
+@import "@fontsource-variable/outfit/wght.css";
 @import "tailwindcss";
 
 /* Dark mode mengikuti class .dark (diatur dari lib/theme.ts: sistem / terang / gelap) */
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-heading: 'Fraunces Variable', Georgia, 'Times New Roman', serif;
-  --font-sans: 'Plus Jakarta Sans Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-serif: 'Fraunces Variable', Georgia, serif;
+  --font-heading: 'Outfit Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-sans: 'Outfit Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-serif: var(--font-heading);
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-  /* Identitas "Kertas & Tinta": netral hangat + aksen tanah liat.
-     Menimpa skala slate/indigo bawaan supaya seluruh komponen ikut hangat. */
-  --color-slate-50: #faf8f5;
-  --color-slate-100: #f4f0ea;
-  --color-slate-200: #e8e2d8;
-  --color-slate-300: #d5cdc0;
-  --color-slate-400: #8f867a;
-  --color-slate-500: #6f665b;
-  --color-slate-600: #544d44;
-  --color-slate-700: #403a33;
-  --color-slate-800: #2a2621;
-  --color-slate-900: #1d1a16;
-  --color-slate-950: #12100d;
+  /* Netral arang hangat (gaya "study app" gelap) + aksen hijau.
+     Menimpa skala slate/indigo bawaan supaya seluruh komponen ikut. */
+  --color-slate-50: #f8f7f5;
+  --color-slate-100: #f0eeeb;
+  --color-slate-200: #e3e0dc;
+  --color-slate-300: #ccc8c2;
+  --color-slate-400: #8e8a84;
+  --color-slate-500: #6d6964;
+  --color-slate-600: #53504c;
+  --color-slate-700: #403d3a;
+  --color-slate-800: #33312e;
+  --color-slate-900: #262422;
+  --color-slate-950: #1a1918;
 
   --color-indigo-50: #effcf9;
   --color-indigo-100: #d3f6ee;
@@ -38,7 +37,7 @@
   --color-indigo-950: #052a28;
 
   --color-ink: #10264d;
-  --color-paper: #fbf8f3;
+  --color-paper: #f8f7f5;
 }
 
 @utility font-heading { font-family: var(--font-heading); }
@@ -48,24 +47,24 @@
 
 @layer base {
   :root {
-    --bg-page: #fbf8f3;
+    --bg-page: #f8f7f5;
     --surface-card: #ffffff;
-    --border-subtle: #e8e2d8;
-    --text-primary: #1d1a16;
-    --text-secondary: #544d44;
-    --text-muted: #6f665b;
+    --border-subtle: #e3e0dc;
+    --text-primary: #1a1918;
+    --text-secondary: #53504c;
+    --text-muted: #6d6964;
     --color-primary: #0b8579;
     --color-primary-hover: #0a6b62;
     color-scheme: light;
   }
 
   .dark {
-    --bg-page: #14110e;
-    --surface-card: #1c1814;
-    --border-subtle: #2f2922;
-    --text-primary: #f6f1ea;
-    --text-secondary: #b9aea0;
-    --text-muted: #9d9487;
+    --bg-page: #1a1918;
+    --surface-card: #262422;
+    --border-subtle: #3a3835;
+    --text-primary: #f5f3ef;
+    --text-secondary: #bdb8b1;
+    --text-muted: #9f9a93;
     --color-primary: #33c3ae;
     --color-primary-hover: #6fdcc7;
     color-scheme: dark;
@@ -86,7 +85,8 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
-    letter-spacing: -0.015em;
+    font-weight: 700;
+    letter-spacing: -0.02em;
     text-wrap: balance;
   }
 
@@ -124,11 +124,11 @@
       dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100;
   }
 @utility btn {
-    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl px-4 py-2 text-sm font-semibold
       transition active:scale-[0.98] disabled:opacity-50 disabled:active:scale-100;
   }
 @utility btn-primary {
-    @apply btn bg-indigo-600 text-white shadow-xs hover:bg-indigo-700 dark:bg-indigo-500 dark:text-slate-950 dark:hover:bg-indigo-400;
+    @apply btn bg-indigo-600 text-white shadow-[inset_0_-3px_0_rgb(0_0_0/0.22)] hover:bg-indigo-700 dark:bg-indigo-500 dark:text-slate-950 dark:hover:bg-indigo-400;
   }
 @utility btn-soft {
     @apply btn border border-slate-200 bg-white text-slate-800 hover:bg-slate-50
@@ -138,7 +138,7 @@
     @apply btn text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800;
   }
 @utility card {
-    @apply rounded-2xl border border-slate-200 bg-white shadow-xs dark:border-slate-800 dark:bg-slate-900/70;
+    @apply rounded-3xl border border-slate-200 bg-white shadow-xs dark:border-slate-800 dark:bg-slate-900;
   }
 @utility chip {
     @apply inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-medium
@@ -165,11 +165,78 @@
 }
 .page-enter { animation: rise-in 0.28s ease-out both; }
 
+/* Maskot melayang pelan; mata berkedip sesekali */
+@keyframes mascot-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.mascot-bob { animation: mascot-bob 4s ease-in-out infinite; }
+@keyframes mascot-blink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.1); }
+}
+.mascot-eyes { transform-box: fill-box; transform-origin: center; animation: mascot-blink 5s infinite; }
+
 @keyframes toast-in {
   from { opacity: 0; transform: translateY(12px) scale(0.97); }
   to { opacity: 1; transform: none; }
 }
 .toast-enter { animation: toast-in 0.25s ease-out both; }
+
+/* Pindah langkah (onboarding & tur): masuk dari arah tujuan agar terasa maju/mundur */
+@keyframes step-from-right {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes step-from-left {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: none; }
+}
+.step-next { animation: step-from-right 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.step-prev { animation: step-from-left 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+
+/* Aksen kecil: ikon/centang muncul dengan sedikit pantulan */
+@keyframes pop-in {
+  0% { opacity: 0; transform: scale(0.6); }
+  70% { opacity: 1; transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+.pop-in { animation: pop-in 0.42s cubic-bezier(0.2, 0.8, 0.2, 1) 0.06s both; }
+.check-pop { animation: pop-in 0.18s ease-out both; }
+
+/* Riset topik AI: cahaya latar yang melayang, butiran halus, radar, dan kartu hasil masuk bertahap */
+@keyframes orb-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(40px, 30px) scale(1.12); }
+}
+.ai-orb { animation: orb-drift 14s ease-in-out infinite; }
+.ai-orb-late { animation-delay: -7s; }
+.ai-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+@keyframes radar-ping {
+  from { opacity: 0.7; transform: scale(1); }
+  to { opacity: 0; transform: scale(1.9); }
+}
+.ai-radar::before, .ai-radar::after {
+  content: ''; position: absolute; inset: 0; border-radius: 9999px; border: 1px solid rgb(165 180 252 / 0.6);
+  animation: radar-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+.ai-radar::after { animation-delay: 0.9s; }
+@keyframes bar-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.ai-bar { transform-origin: left; animation: bar-grow 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s both; }
+.rise-stagger { animation: rise-in 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.rise-stagger:nth-child(2) { animation-delay: 0.08s; }
+.rise-stagger:nth-child(3) { animation-delay: 0.16s; }
+.rise-stagger:nth-child(4) { animation-delay: 0.24s; }
+.rise-stagger:nth-child(n + 5) { animation-delay: 0.32s; }
+
+/* Tur: menu yang sedang dibahas diberi cincin berdenyut */
+@keyframes tour-pulse {
+  0%, 100% { box-shadow: 0 0 0 2px rgb(99 102 241 / 0.9), 0 0 0 6px rgb(99 102 241 / 0.25); }
+  50% { box-shadow: 0 0 0 2px rgb(99 102 241 / 0.9), 0 0 0 10px rgb(99 102 241 / 0); }
+}
+.tour-ring { animation: tour-pulse 1.6s ease-in-out infinite; }
 
 /* Hormati preferensi kurangi gerakan */
 @media (prefers-reduced-motion: reduce) {

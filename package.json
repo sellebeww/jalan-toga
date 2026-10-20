@@ -2,6 +2,8 @@
   "name": "jalan-toga",
   "private": true,
   "version": "0.0.0",
+  "author": "Vassel Goleyu",
+  "license": "UNLICENSED",
   "type": "module",
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
@@ -14,8 +16,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@fontsource-variable/fraunces": "^5.3.0",
-    "@fontsource-variable/plus-jakarta-sans": "^5.3.0",
+    "@anthropic-ai/sdk": "^0.135.0",
+    "@fontsource-variable/outfit": "^5.3.0",
+    "@supabase/supabase-js": "^2.118.0",
     "canvas-confetti": "^1.9.4",
     "lucide-react": "^0.546.0",
     "react": "^19.0.1",

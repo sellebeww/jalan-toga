@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Menu } from 'lucide-react';
+import { Lock, Menu } from 'lucide-react';
+import { useAppStore } from '../../lib/store';
+import { requiredStatus } from '../../lib/stageGate';
 import { Link, useLocation } from '../../app/router';
 import { matchRoute, routes } from '../../app/routes';
 import { Modal } from '../common/Modal';
 import { cn } from '../common/cn';
-import { NavLinks, ProfileCard } from './Sidebar';
+import { AccountCard, NavLinks, ProfileCard } from './Sidebar';
 
 const PRIMARY = ['/', '/roadmap', '/tracker', '/bab'];
 
@@ -14,6 +16,7 @@ export const BottomNav: React.FC = () => {
   const active = matchRoute(path);
   const primary = PRIMARY.map((p) => routes.find((r) => r.path === p)!);
   const inMore = !!active && !PRIMARY.includes(active.path);
+  const status = useAppStore().profile?.status;
 
   return (
     <>
@@ -25,20 +28,24 @@ export const BottomNav: React.FC = () => {
           {primary.map((r) => {
             const Icon = r.icon;
             const isActive = active?.path === r.path;
+            const locked = !!requiredStatus(r.path, status);
             return (
               <li key={r.path}>
                 <Link
                   to={r.path}
+                  data-nav-path={r.path}
                   aria-current={isActive ? 'page' : undefined}
                   className={cn(
                     'flex min-h-14 flex-col items-center justify-center gap-0.5 text-[11px] font-semibold transition',
                     isActive ? 'text-indigo-700 dark:text-indigo-300' : 'text-slate-500 dark:text-slate-400'
                   )}
                 >
-                  <span className={cn('flex h-7 w-12 items-center justify-center rounded-full transition', isActive && 'bg-indigo-100 dark:bg-indigo-950')}>
+                  <span className={cn('relative flex h-7 w-12 items-center justify-center rounded-full transition', isActive && 'bg-indigo-100 dark:bg-indigo-950')}>
                     <Icon aria-hidden="true" className="h-5 w-5" />
+                    {locked && <Lock aria-hidden="true" className="absolute right-1.5 top-0 h-3 w-3" />}
                   </span>
                   {r.title.split(' ')[0]}
+                  {locked && <span className="sr-only">(terkunci untuk tahapmu)</span>}
                 </Link>
               </li>
             );
@@ -67,6 +74,9 @@ export const BottomNav: React.FC = () => {
           <ProfileCard onNavigate={() => setMenuOpen(false)} />
         </div>
         <NavLinks onNavigate={() => setMenuOpen(false)} />
+        <div className="mt-5 border-t border-slate-200 pt-3 dark:border-slate-800">
+          <AccountCard onNavigate={() => setMenuOpen(false)} />
+        </div>
       </Modal>
     </>
   );

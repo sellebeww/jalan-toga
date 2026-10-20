@@ -8,8 +8,16 @@ import { Sidebar } from './Sidebar';
 import { TopBar } from './TopBar';
 import { BottomNav } from './BottomNav';
 import { ToastHost } from './ToastHost';
+import { Tour } from './Tour';
+import { StageLock } from './StageLock';
+import { useAppStore } from '../../lib/store';
+import { requiredStatus } from '../../lib/stageGate';
+import { useAuth } from '../../lib/auth';
+import { Mascot } from './Mascot';
 
 const SearchModal = lazy(() => import('../modals/SearchModal'));
+const Mulai = lazy(() => import('../../pages/Mulai'));
+const Masuk = lazy(() => import('../../pages/Masuk'));
 
 const PageSkeleton: React.FC = () => (
   <div className="mx-auto max-w-5xl animate-pulse space-y-4 px-4 py-8 sm:px-6" aria-busy="true" aria-label="Memuat halaman">
@@ -36,6 +44,8 @@ const NotFound: React.FC = () => (
 export const AppShell: React.FC = () => {
   const { path } = useLocation();
   const route = matchRoute(path);
+  const { profile, tourDone } = useAppStore();
+  const auth = useAuth();
   const [searchOpen, setSearchOpen] = useState(false);
   const mainRef = useRef<HTMLElement>(null);
 
@@ -71,6 +81,44 @@ export const AppShell: React.FC = () => {
   }, []);
 
   const Page = route?.component;
+  const need = route ? requiredStatus(route.path, profile?.status) : null;
+
+  // Saat memeriksa sesi atau memuat data akun: layar tunggu (ConfirmHost dipasang untuk pilihan versi data).
+  if (auth.status === 'loading') {
+    return (
+      <main id="main" className="flex min-h-dvh flex-col items-center justify-center gap-3 px-6 text-center" aria-busy="true">
+        <Mascot className="mascot-bob h-32 w-32" />
+        <p className="text-sm font-medium text-slate-600 dark:text-slate-300">Menyiapkan ruang kerjamu…</p>
+        <ToastHost />
+        <ConfirmHost />
+      </main>
+    );
+  }
+
+  if (auth.status === 'signedOut') {
+    return (
+      <>
+        <Suspense fallback={<PageSkeleton />}>
+          <Masuk />
+        </Suspense>
+        <ToastHost />
+        <ConfirmHost />
+      </>
+    );
+  }
+
+  // Profil wajib diisi dulu: tanpa profil, seluruh aplikasi diganti layar onboarding.
+  if (!profile) {
+    return (
+      <main id="main" className="min-h-dvh pb-10 outline-none">
+        <Suspense fallback={<PageSkeleton />}>
+          <Mulai />
+        </Suspense>
+        <ToastHost />
+        <ConfirmHost />
+      </main>
+    );
+  }
 
   return (
     <div className="min-h-dvh lg:pl-72">
@@ -88,12 +136,18 @@ export const AppShell: React.FC = () => {
       <TopBar onOpenSearch={() => setSearchOpen(true)} />
       <main id="main" ref={mainRef} tabIndex={-1} className="pb-24 outline-none lg:pb-10">
         <ErrorBoundary resetKey={path}>
-          <Suspense fallback={<PageSkeleton />}>{Page ? <Page /> : <NotFound />}</Suspense>
+          <Suspense fallback={<PageSkeleton />}>
+            {route && need ? <StageLock route={route} current={profile.status} need={need} /> : Page ? <Page /> : <NotFound />}
+          </Suspense>
         </ErrorBoundary>
+        <footer className="no-print px-4 pt-10 text-center text-xs text-slate-500 dark:text-slate-400">
+          © {new Date().getFullYear()} Vassel Goleyu
+        </footer>
       </main>
       <BottomNav />
       <ToastHost />
       <ConfirmHost />
+      {!tourDone && <Tour />}
       {searchOpen && (
         <Suspense fallback={null}>
           <SearchModal onClose={() => setSearchOpen(false)} />

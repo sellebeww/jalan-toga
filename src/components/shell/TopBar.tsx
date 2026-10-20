@@ -32,7 +32,7 @@ export const TopBar: React.FC<{ onOpenSearch: () => void }> = ({ onOpenSearch })
     <header className="no-print sticky top-0 z-40 border-b border-slate-200 bg-white/85 backdrop-blur-md dark:border-slate-800 dark:bg-slate-950/80">
       <div className="mx-auto flex h-14 max-w-7xl items-center gap-2 px-3 sm:px-6 lg:px-8">
         <Link to="/" className="mr-1 flex items-center lg:hidden" aria-label="Beranda">
-          <span className="rounded-lg dark:bg-[#fbf8f3] dark:px-0.5"><BrandMark className="h-8 w-9" /></span>
+          <BrandMark className="h-8 w-9" />
         </Link>
 
         {profile && plan ? (
