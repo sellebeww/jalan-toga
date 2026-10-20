@@ -6,31 +6,29 @@ import { cn } from './cn';
 const FOCUSABLE =
   'a[href],button:not([disabled]),textarea,input:not([disabled]),select,[tabindex]:not([tabindex="-1"])';
 
-/** Dialog aksesibel: jebakan fokus, tutup dengan Esc, kunci scroll latar, kembalikan fokus. */
-export const Modal: React.FC<{
-  open: boolean;
-  onClose: () => void;
-  title: string;
-  children: React.ReactNode;
-  footer?: React.ReactNode;
-  size?: 'sm' | 'md' | 'lg';
-}> = ({ open, onClose, title, children, footer, size = 'md' }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const titleId = useId();
+// Dialog bisa bertumpuk (mis. Ctrl+K di atas Glosarium); hanya yang teratas menanggapi keyboard.
+const dialogStack: HTMLElement[] = [];
 
+/** Perilaku dialog: fokus awal, jebakan fokus, tutup dengan Esc, kunci scroll latar, kembalikan fokus. */
+export function useDialogFocus(ref: React.RefObject<HTMLElement | null>, open: boolean, onClose: () => void) {
+  // onClose sering berupa arrow inline; simpan di ref agar efek tidak berjalan ulang (fokus melompat) tiap render.
+  const closeRef = useRef(onClose);
+  closeRef.current = onClose;
   useEffect(() => {
     if (!open) return;
     const previous = document.activeElement as HTMLElement | null;
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     const node = ref.current;
+    if (node) dialogStack.push(node);
     const first = node?.querySelector<HTMLElement>(FOCUSABLE);
     first?.focus();
 
     const onKey = (e: KeyboardEvent) => {
+      if (!node || dialogStack[dialogStack.length - 1] !== node) return;
       if (e.key === 'Escape') {
         e.stopPropagation();
-        onClose();
+        closeRef.current();
       } else if (e.key === 'Tab' && node) {
         const items = Array.from(node.querySelectorAll<HTMLElement>(FOCUSABLE));
         if (items.length === 0) return;
@@ -48,10 +46,25 @@ export const Modal: React.FC<{
     document.addEventListener('keydown', onKey);
     return () => {
       document.removeEventListener('keydown', onKey);
+      if (node) dialogStack.splice(dialogStack.lastIndexOf(node), 1);
       document.body.style.overflow = prevOverflow;
       previous?.focus?.();
     };
-  }, [open, onClose]);
+  }, [ref, open]);
+}
+
+/** Dialog aksesibel; perilaku keyboard dari useDialogFocus. */
+export const Modal: React.FC<{
+  open: boolean;
+  onClose: () => void;
+  title: string;
+  children: React.ReactNode;
+  footer?: React.ReactNode;
+  size?: 'sm' | 'md' | 'lg';
+}> = ({ open, onClose, title, children, footer, size = 'md' }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const titleId = useId();
+  useDialogFocus(ref, open, onClose);
 
   if (!open) return null;
 

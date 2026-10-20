@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Award, BookMarked, BookOpen, GraduationCap, Layers, User, Wrench } from 'lucide-react';
 import { useLocation } from '../app/router';
 import { StudyView } from '../components/views/StudyView';

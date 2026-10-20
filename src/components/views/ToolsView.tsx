@@ -12,19 +12,18 @@ import { ChartSelector } from '../tools/ChartSelector';
 import { ThesisAlignmentChecklist } from '../tools/ThesisAlignmentChecklist';
 import { PosterChecklist } from '../tools/PosterChecklist';
 import { DecisionTree } from '../ui/DecisionTree';
-import { 
-  Calculator, 
-  GitBranch, 
-  FileCheck, 
-  Compass, 
-  Search, 
-  Layers, 
-  Sparkles, 
-  Binary, 
-  CheckSquare, 
-  BarChart3, 
-  BookOpen, 
-  Users 
+import {
+  Calculator,
+  GitBranch,
+  FileCheck,
+  Compass,
+  Layers,
+  Sparkles,
+  Binary,
+  CheckSquare,
+  BarChart3,
+  BookOpen,
+  Users
 } from 'lucide-react';
 
 interface ToolsViewProps {
@@ -78,9 +77,9 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ initialToolId }) => {
             13 Alat Interaktif
           </span>
         </div>
-        <h1 className="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900 dark:text-slate-100 tracking-tight">
+        <h2 className="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900 dark:text-slate-100 tracking-tight">
           Alat & Kalkulator Riset TI
-        </h1>
+        </h2>
         <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
           Gunakan kalkulator rumus statistik, generator sitasi IEEE, simulator error, dan checklist Aturan Emas skripsi.
         </p>
@@ -110,7 +109,7 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ initialToolId }) => {
                       }`}
                     >
                       <div className={`p-1.5 rounded-lg mt-0.5 ${
-                        isActive ? 'bg-indigo-700 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'
+                        isActive ? 'bg-indigo-700 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-300'
                       }`}>
                         <Icon className="w-4 h-4" />
                       </div>
@@ -118,7 +117,7 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ initialToolId }) => {
                         <div className="font-heading font-semibold text-xs leading-tight">
                           {t.name}
                         </div>
-                        <div className={`text-[10px] truncate mt-0.5 ${isActive ? 'text-indigo-100' : 'text-slate-400 dark:text-slate-500'}`}>
+                        <div className={`text-[10px] truncate mt-0.5 ${isActive ? 'text-white' : 'text-slate-400 dark:text-slate-500'}`}>
                           {t.desc}
                         </div>
                       </div>

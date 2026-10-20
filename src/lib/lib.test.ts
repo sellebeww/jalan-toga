@@ -165,6 +165,15 @@ describe('store & gamifikasi', () => {
     expect(s.themePref).toBe('system');
     expect(s.writingTarget).toBe(300);
   });
+  it('sanitizeState membuang referensi rusak dan menormalkan field opsional', () => {
+    const ok = { id: 'a', type: 'jurnal', title: 'Judul', year: '2024', container: 'J', authors: [{ family: 'B', given: 'A' }], tags: [], doi: '10.1/x', createdAt: 1 };
+    const s = sanitizeState({
+      references: [ok, { ...ok, id: 'b', title: 123 }, { ...ok, id: 'c', authors: 'x' }, { ...ok, id: 'd', tags: null }, { ...ok, id: 'e', url: {}, pages: 12 }, 'teks']
+    });
+    expect(s.references.map((r) => r.id)).toEqual(['a', 'e']);
+    expect(s.references[1].url).toBeUndefined();
+    expect(s.references[1].pages).toBe('12');
+  });
   it('sanitizeState mempertahankan data valid', () => {
     const s = sanitizeState({ profile: profile(), roadmapChecks: { 'topik.1': true } });
     expect(s.profile?.jurusanId).toBe('kesehatan');
@@ -178,5 +187,32 @@ describe('store & gamifikasi', () => {
     expect(bestWritingStreak(s)).toBe(3);
     s.wordLog['2026-10-19'] = 10;
     expect(writingStreak(s, '2026-10-19')).toBe(2);
+  });
+});
+
+describe('stageGate', async () => {
+  const { requiredStatus } = await import('./stageGate');
+  it('mengunci halaman sampai tahap minimal tercapai', () => {
+    expect(requiredStatus('/bab', 'belum-topik')).toBe('punya-judul');
+    expect(requiredStatus('/bab', 'punya-judul')).toBeNull();
+    expect(requiredStatus('/sidang', 'punya-judul')).toBe('proposal');
+    expect(requiredStatus('/sidang', 'revisi-akhir')).toBeNull();
+    expect(requiredStatus('/topik', 'belum-topik')).toBeNull();
+    expect(requiredStatus('/bab', undefined)).toBeNull();
+  });
+});
+
+describe('topicAI.parseReport', async () => {
+  const { parseReport } = await import('./topicAI');
+  it('membaca blok json terakhir, menjepit skor, dan membuang url tidak aman', () => {
+    const r = parseReport('riset...\n```json\n{"skor":140,"verdict":"x","ringkasan":"ok","dimensi":[{"nama":"Kebaruan","skor":"80","alasan":"a"}],"kekuatan":["k",3],"risiko":[],"saranJudul":["j"],"penelitianTerkait":[{"judul":"A","tahun":2021,"url":"https://a.id","relevansi":"r"},{"judul":"B","url":"javascript:alert(1)"}]}\n```');
+    expect(r.skor).toBe(100);
+    expect(r.verdict).toBe('kuat');
+    expect(r.dimensi[0].skor).toBe(80);
+    expect(r.kekuatan).toEqual(['k']);
+    expect(r.penelitianTerkait).toEqual([{ judul: 'A', tahun: '2021', url: 'https://a.id', relevansi: 'r' }]);
+  });
+  it('melempar error untuk teks tanpa json', () => {
+    expect(() => parseReport('maaf')).toThrow();
   });
 });

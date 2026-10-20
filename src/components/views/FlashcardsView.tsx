@@ -2,16 +2,10 @@ import React, { useState } from 'react';
 import { FlashcardRunner } from '../flashcard/FlashcardRunner';
 import { allFlashcards } from '../../data/flashcards';
 import { useAppStore, appStore } from '../../lib/store';
-import { 
-  Layers, 
-  BrainCircuit, 
-  RotateCcw, 
-  Sparkles, 
-  CheckCircle2, 
-  Clock, 
-  HelpCircle, 
-  Info,
-  Calendar
+import {
+  BrainCircuit,
+  RotateCcw,
+  Info
 } from 'lucide-react';
 
 export const FlashcardsView: React.FC = () => {
@@ -49,9 +43,9 @@ export const FlashcardsView: React.FC = () => {
               Total {totalCards} Kartu · {masteryPct}% Dikuasai
             </span>
           </div>
-          <h1 className="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900 dark:text-slate-100 tracking-tight">
+          <h2 className="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900 dark:text-slate-100 tracking-tight">
             Hafalan Cepat Konsep & Rumus RTI
-          </h1>
+          </h2>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
             Hafalkan definisi, klasifikasi, rumus statistik, dan aturan IEEE dengan pengulangan berjarak optimal.
           </p>
@@ -93,7 +87,7 @@ export const FlashcardsView: React.FC = () => {
               <span className="font-heading font-bold text-xs uppercase tracking-wide">
                 {b.label}
               </span>
-              <span className="font-mono text-xs font-semibold opacity-70">
+              <span className="font-mono text-xs font-semibold opacity-90">
                 {b.interval}
               </span>
             </div>
@@ -101,7 +95,7 @@ export const FlashcardsView: React.FC = () => {
               <span className="text-2xl font-extrabold font-mono tabular-nums">
                 {b.count}
               </span>
-              <span className="text-[11px] opacity-70">kartu</span>
+              <span className="text-[11px] opacity-90">kartu</span>
             </div>
           </div>
         ))}

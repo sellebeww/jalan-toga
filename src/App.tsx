@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { AppShell } from './components/shell/AppShell';
 import { appStore } from './lib/store';
 import { applyTheme, watchSystemTheme } from './lib/theme';

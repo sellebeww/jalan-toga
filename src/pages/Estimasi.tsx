@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { CalendarClock } from 'lucide-react';
 import { phases } from '../data/roadmap';
 import type { PhaseId } from '../data/majors';

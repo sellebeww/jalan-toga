@@ -28,6 +28,7 @@ export interface AppState {
   themePref: ThemePref;
   studyMode: 'paham' | 'hafal';
   remindersOn: boolean;
+  tourDone: boolean;
 
   // --- Profil & roadmap
   profile: Profile | null;
@@ -79,6 +80,7 @@ export function createDefaultState(): AppState {
     themePref: 'system',
     studyMode: 'paham',
     remindersOn: false,
+    tourDone: false,
     profile: null,
     roadmapChecks: {},
     babStatus: {},
@@ -110,6 +112,29 @@ export function createDefaultState(): AppState {
 
 const isObj = (v: unknown): v is Record<string, unknown> =>
   typeof v === 'object' && v !== null && !Array.isArray(v);
+
+const REF_OPTIONAL = ['volume', 'issue', 'pages', 'publisher', 'city', 'edition', 'doi', 'url', 'accessed', 'note'] as const;
+
+type Ref = AppState['references'][number];
+
+/** Field wajib harus bertipe benar (entri dibuang bila tidak); field opsional angka jadi string, sisanya dihapus. */
+function normalizeReference(r: unknown): Ref | null {
+  if (!isObj(r)) return null;
+  const str = (k: string) => typeof r[k] === 'string';
+  const ok =
+    ['id', 'type', 'title', 'year', 'container'].every(str) &&
+    Array.isArray(r.authors) &&
+    r.authors.every((a) => isObj(a) && typeof a.family === 'string' && typeof a.given === 'string') &&
+    Array.isArray(r.tags) &&
+    r.tags.every((t) => typeof t === 'string');
+  if (!ok) return null;
+  const out = { ...r };
+  for (const k of REF_OPTIONAL) {
+    if (typeof out[k] === 'number') out[k] = String(out[k]);
+    else if (out[k] !== undefined && typeof out[k] !== 'string') delete out[k];
+  }
+  return out as unknown as Ref;
+}
 
 /**
  * Gabungkan data tak tepercaya (localStorage / file impor) dengan default.
@@ -151,6 +176,8 @@ export function sanitizeState(raw: unknown): AppState {
     }
   }
   if (!['system', 'light', 'dark'].includes(base.themePref)) base.themePref = 'system';
+  // Formatter sitasi mengandalkan tipe field; entri rusak dari file impor dibuang agar halaman Referensi tidak crash.
+  base.references = base.references.map(normalizeReference).filter((r): r is Ref => r !== null);
   return base;
 }
 
@@ -501,7 +528,11 @@ export const appStore = {
     if (!isObj(parsed) || parsed.app !== 'pendamping-skripsi' || !isObj(parsed.state)) {
       throw new Error('File ini bukan cadangan Jalan Toga.');
     }
-    const next = sanitizeState(parsed.state);
+    appStore.replaceState(parsed.state);
+  },
+  /** Ganti seluruh state dari sumber luar (cadangan atau cloud) setelah divalidasi. */
+  replaceState(raw: unknown) {
+    const next = sanitizeState(raw);
     applyTheme(next.themePref);
     commit(next);
   },

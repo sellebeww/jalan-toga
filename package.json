@@ -2,6 +2,8 @@
   "name": "jalan-toga",
   "private": true,
   "version": "0.0.0",
+  "author": "Vassel Goleyu",
+  "license": "UNLICENSED",
   "type": "module",
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
@@ -10,29 +12,33 @@
     "lint": "tsc --noEmit",
     "clean": "rm -rf dist",
     "test": "vitest run",
-    "brand": "node scripts/make-brand-assets.mjs"
+    "brand": "node scripts/make-brand-assets.mjs",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@fontsource-variable/fraunces": "^5.3.0",
-    "@fontsource-variable/plus-jakarta-sans": "^5.3.0",
-    "@tailwindcss/vite": "^4.3.3",
-    "@types/canvas-confetti": "^1.9.0",
-    "@vitejs/plugin-react": "^6.1.1",
+    "@anthropic-ai/sdk": "^0.135.0",
+    "@fontsource-variable/outfit": "^5.3.0",
+    "@supabase/supabase-js": "^2.118.0",
     "canvas-confetti": "^1.9.4",
     "lucide-react": "^0.546.0",
-    "motion": "^12.23.24",
     "react": "^19.0.1",
-    "react-dom": "^19.0.1",
-    "vite": "^8.3.0"
+    "react-dom": "^19.0.1"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/canvas-confetti": "^1.9.0",
     "@types/node": "^22.14.0",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
     "jsdom": "^29.1.1",
     "sharp": "^0.35.5",
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2",
+    "vite": "^8.3.4",
     "vitest": "^5.0.5"
+  },
+  "engines": {
+    "node": ">=22.12.0"
   }
 }

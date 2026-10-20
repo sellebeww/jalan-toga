@@ -1,32 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  allModules, 
-  getModuleBySlug, 
-  getTopicById, 
-  getAdjacentTopics 
+import {
+  allModules,
+  getModuleBySlug,
+  getAdjacentTopics
 } from '../../data/modules';
-import { Topic, ModuleData } from '../../types';
+import { Topic } from '../../types';
 import { appStore, useAppStore } from '../../lib/store';
 import { Callout } from '../ui/Callout';
 import { CompareTable } from '../ui/CompareTable';
-import { StepList } from '../ui/StepList';
 import { Timeline5Generations } from '../ui/Timeline';
 import { DIKWPyramid } from '../ui/Pyramid';
 import { ErrorMatrix2x2 } from '../ui/Matrix2x2';
 import { DecisionTree } from '../ui/DecisionTree';
 import { MiniQuizInline } from '../quiz/MiniQuizInline';
-import { 
-  Bookmark, 
-  CheckCircle2, 
-  ChevronRight, 
-  ChevronLeft, 
-  Printer, 
-  Sparkles, 
-  StickyNote, 
-  Clock, 
-  Menu,
-  Lightbulb,
-  AlertTriangle
+import {
+  Bookmark,
+  CheckCircle2,
+  ChevronRight,
+  ChevronLeft,
+  Printer,
+  Sparkles,
+  StickyNote,
+  Clock,
+  Menu
 } from 'lucide-react';
 
 interface StudyViewProps {
@@ -154,18 +150,18 @@ export const StudyView: React.FC<StudyViewProps> = ({
               >
                 <div className="flex items-center justify-between mb-1.5">
                   <span className={`text-[10px] font-mono font-bold px-1.5 py-0.5 rounded ${
-                    isActive ? 'bg-indigo-700 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400'
+                    isActive ? 'bg-indigo-700 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'
                   }`}>
                     M{m.number}
                   </span>
-                  <span className={`text-[10px] font-mono ${isActive ? 'text-indigo-100' : 'text-slate-400 dark:text-slate-500'}`}>
+                  <span className={`text-[10px] font-mono ${isActive ? 'text-white' : 'text-slate-400 dark:text-slate-500'}`}>
                     {pct}%
                   </span>
                 </div>
                 <div className="font-heading font-bold text-xs line-clamp-1">
                   {m.title}
                 </div>
-                <div className={`text-[10px] truncate mt-0.5 ${isActive ? 'text-indigo-100' : 'text-slate-400 dark:text-slate-500'}`}>
+                <div className={`text-[10px] truncate mt-0.5 ${isActive ? 'text-white' : 'text-slate-400 dark:text-slate-500'}`}>
                   {m.topics.length} topik
                 </div>
               </button>
@@ -237,7 +233,7 @@ export const StudyView: React.FC<StudyViewProps> = ({
                         ? 'bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 font-bold'
                         : isCurrent
                         ? 'bg-indigo-600 text-white font-bold'
-                        : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'
+                        : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-300'
                     }`}>
                       {isDone ? '✓' : idx + 1}
                     </span>
@@ -293,7 +289,7 @@ export const StudyView: React.FC<StudyViewProps> = ({
                     className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition cursor-pointer ${
                       isBookmarked
                         ? 'bg-amber-100 dark:bg-amber-950/70 text-amber-800 dark:text-amber-300'
-                        : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+                        : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
                     }`}
                   >
                     <Bookmark className={`w-3.5 h-3.5 ${isBookmarked ? 'fill-amber-500 text-amber-500' : ''}`} />
@@ -319,7 +315,7 @@ export const StudyView: React.FC<StudyViewProps> = ({
                     className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition cursor-pointer ${
                       showNotes || noteText.trim()
                         ? 'bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300'
-                        : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+                        : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
                     }`}
                   >
                     <StickyNote className="w-3.5 h-3.5" />
@@ -330,9 +326,9 @@ export const StudyView: React.FC<StudyViewProps> = ({
 
               {/* Title & TLDR */}
               <div className="py-6">
-                <h1 className="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900 dark:text-slate-100 leading-tight tracking-tight">
+                <h2 className="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900 dark:text-slate-100 leading-tight tracking-tight">
                   {currentTopic.title}
-                </h1>
+                </h2>
                 <div className="mt-4 p-4 sm:p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-800 text-slate-700 dark:text-slate-300 leading-relaxed font-serif italic text-sm sm:text-base">
                   "{currentTopic.tldr}"
                 </div>
@@ -424,7 +420,7 @@ export const StudyView: React.FC<StudyViewProps> = ({
               {/* Definition Box */}
               {currentTopic.definition && (
                 <div className="p-6 rounded-2xl bg-slate-50/80 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 mb-6">
-                  <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 dark:text-slate-400 mb-2 font-semibold">
+                  <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 dark:text-slate-300 mb-2 font-semibold">
                     Definisi Resmi Modul
                   </h4>
                   <p className="text-sm sm:text-base leading-relaxed text-slate-800 dark:text-slate-200">

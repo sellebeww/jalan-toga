@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Download, FileText, Printer, Search } from 'lucide-react';
 import { Link, useLocation, useTabParam } from '../app/router';
 import { docTemplates, fillDoc } from '../data/templates';
@@ -35,7 +35,7 @@ function Templates() {
 
   return (
     <>
-      <div className="no-print grid gap-6 lg:grid-cols-5">
+      <div className="no-print grid grid-cols-1 gap-6 lg:grid-cols-5">
         <aside className="space-y-5 lg:col-span-2">
           <section className="card p-5">
             <h2 className="font-heading text-lg font-bold">Data untuk mengisi template</h2>
@@ -84,7 +84,7 @@ function Templates() {
                 </button>
               </div>
             </div>
-            <pre className="max-h-[70vh] overflow-auto whitespace-pre-wrap rounded-xl bg-slate-100 p-4 font-mono text-[13px] leading-relaxed dark:bg-slate-800/70">{text}</pre>
+            <pre tabIndex={0} aria-label="Pratinjau isi template" className="max-h-[70vh] overflow-auto whitespace-pre-wrap rounded-xl bg-slate-100 p-4 font-mono text-[13px] leading-relaxed dark:bg-slate-800/70">{text}</pre>
           </div>
           <div className="mt-4">
             <CampusNote>Ini kerangka umum. Kop surat, nomor surat, dan format resmi mengikuti ketentuan kampus dan instansi tujuan. Minta pembimbing mengecek sebelum digunakan.</CampusNote>

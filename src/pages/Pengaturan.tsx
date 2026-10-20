@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Bell, Download, Settings, Trash2, Upload, Wifi, WifiOff } from 'lucide-react';
+import { Bell, Download, PlayCircle, Settings, Trash2, Upload, Wifi, WifiOff } from 'lucide-react';
 import { appStore, useAppStore } from '../lib/store';
 import { usePlan } from '../lib/usePlan';
 import { majorById } from '../data/majors';
@@ -12,12 +12,15 @@ import { Link } from '../app/router';
 import { Notice, Page, PageHeader, Section, Segmented, downloadText } from '../components/common/ui';
 import { confirmAction } from '../components/common/Confirm';
 import { toast } from '../lib/toast';
+import { cloudEnabled, useAuth } from '../lib/auth';
+import { AccountCard } from '../components/shell/Sidebar';
 
 const APP_VERSION = '2.0.0';
 
 export default function Pengaturan() {
   const s = useAppStore();
   const { profile } = usePlan();
+  const signedIn = useAuth().status === 'signedIn';
   const install = useInstallState();
   const fileRef = useRef<HTMLInputElement>(null);
   const [online, setOnline] = useState(typeof navigator !== 'undefined' ? navigator.onLine : true);
@@ -58,7 +61,8 @@ export default function Pengaturan() {
   };
 
   const reset = async () => {
-    const ok = await confirmAction({ title: 'Hapus semua data?', body: 'Profil, roadmap, catatan bimbingan, referensi, dan semua progres akan dihapus dari perangkat ini dan tidak bisa dikembalikan, kecuali kamu punya cadangan.', confirmLabel: 'Hapus semua', danger: true });
+    const where = signedIn ? 'dari perangkat ini dan dari akunmu' : 'dari perangkat ini';
+    const ok = await confirmAction({ title: 'Hapus semua data?', body: `Profil, roadmap, catatan bimbingan, referensi, dan semua progres akan dihapus ${where} dan tidak bisa dikembalikan, kecuali kamu punya cadangan.`, confirmLabel: 'Hapus semua', danger: true });
     if (ok) {
       appStore.clearAllData();
       toast('Semua data dihapus', { tone: 'info' });
@@ -80,9 +84,21 @@ export default function Pengaturan() {
 
   return (
     <Page>
-      <PageHeader eyebrow="Diri sendiri" title="Pengaturan & data" subtitle="Tema, profil, pengingat, serta cadangan data. Semua tersimpan di perangkat ini." icon={<Settings aria-hidden="true" className="h-5 w-5" />} />
+      <PageHeader
+        eyebrow="Diri sendiri"
+        title="Pengaturan & data"
+        subtitle={signedIn ? 'Akun, tema, profil, pengingat, serta cadangan data. Tersinkron ke akunmu.' : 'Tema, profil, pengingat, serta cadangan data. Semua tersimpan di perangkat ini.'}
+        icon={<Settings aria-hidden="true" className="h-5 w-5" />}
+      />
 
       <div className="space-y-6">
+        {cloudEnabled && (
+          <section className="card p-5">
+            <h2 className="mb-2 font-heading text-lg font-bold">Akun</h2>
+            <AccountCard />
+          </section>
+        )}
+
         <section className="card p-5">
           <h2 className="mb-3 font-heading text-lg font-bold">Tampilan</h2>
           <p className="mb-2 text-sm text-slate-600 dark:text-slate-300">Tema mengikuti pengaturan perangkatmu secara default.</p>
@@ -143,6 +159,14 @@ export default function Pengaturan() {
             </button>
             <input ref={fileRef} type="file" accept="application/json,.json" className="sr-only" aria-label="Pilih file cadangan JSON" onChange={(e) => importData(e.target.files?.[0])} />
           </div>
+        </section>
+
+        <section className="card p-5">
+          <h2 className="mb-1 font-heading text-lg font-bold">Tutorial</h2>
+          <p className="mb-4 text-sm text-slate-600 dark:text-slate-300">Lupa cara pakai? Putar ulang panduan singkat langkah demi langkah.</p>
+          <button className="btn-soft" onClick={() => appStore.patch({ tourDone: false })}>
+            <PlayCircle aria-hidden="true" className="h-4 w-4" /> Putar ulang tutorial
+          </button>
         </section>
 
         <section className="card p-5">

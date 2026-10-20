@@ -1,4 +1,4 @@
-import { ModuleData, Topic, ModuleSlug } from '../../types';
+import { ModuleData, Topic } from '../../types';
 import { modul1 } from './modul1';
 import { modul2 } from './modul2';
 import { modul3 } from './modul3';

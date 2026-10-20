@@ -112,7 +112,7 @@ export const DeductiveInductiveSorter: React.FC = () => {
                   </button>
                   <button
                     onClick={() => handleMove(card, 'induktif')}
-                    className="flex-1 py-1 rounded bg-teal-600 hover:bg-teal-700 text-white font-medium text-[11px] cursor-pointer"
+                    className="flex-1 py-1 rounded bg-teal-700 hover:bg-teal-800 text-white font-medium text-[11px] cursor-pointer"
                   >
                     + Induktif
                   </button>

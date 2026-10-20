@@ -1,4 +1,3 @@
-import React from 'react';
 import { ClipboardCheck, Printer } from 'lucide-react';
 import { adminGroups, allAdminItems } from '../data/administrasi';
 import { appStore, useAppStore } from '../lib/store';

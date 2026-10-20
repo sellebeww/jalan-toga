@@ -96,9 +96,9 @@ export const ProfileView: React.FC<ProfileViewProps> = ({ onNavigateToTopic }) =
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="font-heading font-extrabold text-2xl text-slate-900 dark:text-slate-100">
+              <h2 className="font-heading font-extrabold text-2xl text-slate-900 dark:text-slate-100">
                 Profil Belajar Peneliti Muda
-              </h1>
+              </h2>
               <span className="text-xs px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-semibold border border-indigo-200 dark:border-indigo-800">
                 Level: Mahasiswa Skripsi
               </span>
@@ -185,29 +185,30 @@ export const ProfileView: React.FC<ProfileViewProps> = ({ onNavigateToTopic }) =
             const pct = Math.round((completedInMod / m.topics.length) * 100);
 
             return (
-              <div
+              <button
+                type="button"
                 key={m.slug}
                 onClick={() => onNavigateToTopic(m.slug, m.topics[0].id)}
-                className="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-indigo-400 dark:hover:border-indigo-600 cursor-pointer transition bg-slate-50/50 dark:bg-slate-800/40 space-y-2"
+                className="block w-full text-left p-4 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-indigo-400 dark:hover:border-indigo-600 cursor-pointer transition bg-slate-50/50 dark:bg-slate-800/40 space-y-2"
               >
-                <div className="flex items-center justify-between text-xs">
+                <span className="flex items-center justify-between text-xs">
                   <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
                     Modul {m.number}
                   </span>
                   <span className="font-mono font-semibold text-slate-600 dark:text-slate-400">
                     {completedInMod}/{m.topics.length} ({pct}%)
                   </span>
-                </div>
-                <div className="font-heading font-semibold text-sm text-slate-900 dark:text-slate-100 line-clamp-1">
+                </span>
+                <span className="font-heading font-semibold text-sm text-slate-900 dark:text-slate-100 line-clamp-1">
                   {m.title}
-                </div>
-                <div className="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
-                  <div
-                    className="bg-indigo-600 h-full rounded-full transition-all duration-300"
+                </span>
+                <span className="block w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                  <span
+                    className="block bg-indigo-600 h-full rounded-full transition-all duration-300"
                     style={{ width: `${pct}%` }}
                   />
-                </div>
-              </div>
+                </span>
+              </button>
             );
           })}
         </div>
@@ -234,21 +235,22 @@ export const ProfileView: React.FC<ProfileViewProps> = ({ onNavigateToTopic }) =
                 const topic = getTopicById(topicId);
                 if (!topic) return null;
                 return (
-                  <div
+                  <button
+                    type="button"
                     key={topicId}
                     onClick={() => onNavigateToTopic(topic.moduleSlug, topic.id)}
-                    className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 cursor-pointer transition flex items-center justify-between text-xs"
+                    className="w-full text-left p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 cursor-pointer transition flex items-center justify-between text-xs"
                   >
-                    <div>
-                      <div className="font-heading font-semibold text-slate-800 dark:text-slate-200">
+                    <span className="block">
+                      <span className="block font-heading font-semibold text-slate-800 dark:text-slate-200">
                         {topic.title}
-                      </div>
-                      <div className="text-[10px] text-slate-400 dark:text-slate-500 font-mono">
+                      </span>
+                      <span className="block text-[10px] text-slate-400 dark:text-slate-500 font-mono">
                         {topic.moduleSlug.toUpperCase()}
-                      </div>
-                    </div>
+                      </span>
+                    </span>
                     <ArrowRight className="w-3.5 h-3.5 text-slate-400" />
-                  </div>
+                  </button>
                 );
               })}
             </div>
@@ -271,18 +273,19 @@ export const ProfileView: React.FC<ProfileViewProps> = ({ onNavigateToTopic }) =
           ) : (
             <div className="space-y-2 max-h-64 overflow-y-auto pr-1">
               {notesList.map((item) => (
-                <div
+                <button
+                  type="button"
                   key={item.topicId}
                   onClick={() => item.topic && onNavigateToTopic(item.topic.moduleSlug, item.topicId)}
-                  className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer transition text-xs space-y-1"
+                  className="block w-full text-left p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer transition text-xs space-y-1"
                 >
-                  <div className="font-heading font-semibold text-slate-900 dark:text-slate-100">
+                  <span className="block font-heading font-semibold text-slate-900 dark:text-slate-100">
                     {item.topic?.title || item.topicId}
-                  </div>
-                  <p className="text-slate-500 dark:text-slate-400 line-clamp-2 italic font-serif">
+                  </span>
+                  <span className="text-slate-500 dark:text-slate-400 line-clamp-2 italic font-serif">
                     "{item.content}"
-                  </p>
-                </div>
+                  </span>
+                </button>
               ))}
             </div>
           )}

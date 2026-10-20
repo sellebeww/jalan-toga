@@ -1,26 +1,21 @@
 import React, { useState } from 'react';
-import { 
-  allQuizQuestions, 
-  getQuizQuestionsByModule, 
-  generateMockExam 
+import {
+  getQuizQuestionsByModule,
+  generateMockExam
 } from '../../data/quizzes';
 import { allModules } from '../../data/modules';
 import { allComparisons } from '../../data/comparisons';
 import { runningCaseStudy } from '../../data/caseStudy';
 import { QuizRunner } from '../quiz/QuizRunner';
 import { useAppStore } from '../../lib/store';
-import { 
-  Award, 
-  Clock, 
-  Sparkles, 
-  BookOpen, 
-  GitCompare, 
-  FileText, 
-  History, 
-  CheckCircle2, 
+import {
+  Award,
+  Clock,
+  BookOpen,
+  GitCompare,
+  FileText,
+  History,
   AlertTriangle,
-  ArrowRight,
-  Filter,
   Lightbulb
 } from 'lucide-react';
 import { ModuleSlug } from '../../types';
@@ -50,9 +45,9 @@ export const QuizView: React.FC = () => {
               105+ Soal Pembahasan
             </span>
           </div>
-          <h1 className="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900 dark:text-slate-100 tracking-tight">
+          <h2 className="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900 dark:text-slate-100 tracking-tight">
             Latihan & Uji Pemahaman RTI
-          </h1>
+          </h2>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
             Uji kesiapan ujian komprehensif, telaah perbandingan konsep krusial, dan pelajari studi kasus skripsi nyata.
           </p>
@@ -190,7 +185,7 @@ export const QuizView: React.FC = () => {
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer ${
                   activeComparisonModule === 'all'
                     ? 'bg-indigo-600 text-white shadow-xs'
-                    : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+                    : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-200'
                 }`}
               >
                 Semua
@@ -202,7 +197,7 @@ export const QuizView: React.FC = () => {
                   className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer ${
                     activeComparisonModule === m.slug
                       ? 'bg-indigo-600 text-white shadow-xs'
-                      : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+                      : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-200'
                   }`}
                 >
                   M{m.number}

@@ -18,6 +18,7 @@ import {
   Route as RouteIcon,
   Ruler,
   Settings,
+  Sparkles,
   SpellCheck,
   Timer,
   Wrench
@@ -40,6 +41,7 @@ const Mulai = lazy(() => import('../pages/Mulai'));
 const Roadmap = lazy(() => import('../pages/Roadmap'));
 const Topik = lazy(() => import('../pages/Topik'));
 const Judul = lazy(() => import('../pages/Judul'));
+const RisetTopik = lazy(() => import('../pages/RisetTopik'));
 const Metodologi = lazy(() => import('../pages/Metodologi'));
 const Bab = lazy(() => import('../pages/Bab'));
 const Referensi = lazy(() => import('../pages/Referensi'));
@@ -64,6 +66,7 @@ export const routes: AppRoute[] = [
   { path: '/mulai', title: 'Atur profil', desc: 'Pilih jurusan, semester, dan status skripsimu untuk membuat roadmap personal.', group: 'Utama', icon: Flag, nav: false, component: Mulai },
 
   { path: '/topik', title: 'Cari & cek topik', desc: 'Generator ide topik, checklist kelayakan, dan rumus rumusan masalah.', group: 'Mulai skripsi', icon: Lightbulb, nav: true, component: Topik },
+  { path: '/riset-topik', title: 'Uji topik dengan AI', desc: 'AI meriset penelitian serupa di web lalu menilai seberapa kuat topikmu.', group: 'Mulai skripsi', icon: Sparkles, nav: true, component: RisetTopik },
   { path: '/judul', title: 'Pemeriksa judul', desc: 'Galeri judul bagus vs buruk dan pemeriksa kualitas judul.', group: 'Mulai skripsi', icon: SpellCheck, nav: true, component: Judul },
   { path: '/metodologi', title: 'Pemilih metodologi', desc: 'Wizard pertanyaan untuk memilih pendekatan penelitian yang cocok.', group: 'Mulai skripsi', icon: Compass, nav: true, component: Metodologi },
 

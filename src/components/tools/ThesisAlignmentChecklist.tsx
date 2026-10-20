@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CheckSquare, Sparkles, AlertCircle, CheckCircle2, RotateCcw } from 'lucide-react';
+import { CheckSquare, Sparkles, RotateCcw } from 'lucide-react';
 
 export const ThesisAlignmentChecklist: React.FC = () => {
   const [masalah, setMasalah] = useState<string>(

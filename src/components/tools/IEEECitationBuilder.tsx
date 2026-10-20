@@ -8,7 +8,7 @@ export const IEEECitationBuilder: React.FC = () => {
   const [authorLastName, setAuthorLastName] = useState<string>('Al Muhairy');
   const [title, setTitle] = useState<string>('Evaluasi Algoritma Temu Balik Informasi');
   const [containerTitle, setContainerTitle] = useState<string>('Jurnal Sistem Komputer'); // Journal or Book title
-  const [city, setCity] = useState<string>('Jakarta');
+  const [city] = useState<string>('Jakarta'); // belum ada input kota; lihat docs/audit/AUDIT_REPORT.md
   const [publisher, setPublisher] = useState<string>('Informatika Press');
   const [volume, setVolume] = useState<string>('12');
   const [issue, setIssue] = useState<string>('2');
@@ -120,10 +120,10 @@ export const IEEECitationBuilder: React.FC = () => {
       {/* Citation Form */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
         <div>
-          <label className="text-xs font-semibold text-stone-700 dark:text-stone-300 block mb-1">
+          <label htmlFor="ieeecitation-builder-1" className="text-xs font-semibold text-stone-700 dark:text-stone-300 block mb-1">
             Nomor Sitasi:
           </label>
-          <input
+          <input id="ieeecitation-builder-1"
             type="number"
             min="1"
             value={citationNumber}
@@ -133,10 +133,10 @@ export const IEEECitationBuilder: React.FC = () => {
         </div>
 
         <div>
-          <label className="text-xs font-semibold text-stone-700 dark:text-stone-300 block mb-1">
+          <label htmlFor="ieeecitation-builder-2" className="text-xs font-semibold text-stone-700 dark:text-stone-300 block mb-1">
             Inisial Nama Depan:
           </label>
-          <input
+          <input id="ieeecitation-builder-2"
             type="text"
             value={authorInitials}
             onChange={(e) => setAuthorInitials(e.target.value)}
@@ -146,10 +146,10 @@ export const IEEECitationBuilder: React.FC = () => {
         </div>
 
         <div>
-          <label className="text-xs font-semibold text-stone-700 dark:text-stone-300 block mb-1">
+          <label htmlFor="ieeecitation-builder-3" className="text-xs font-semibold text-stone-700 dark:text-stone-300 block mb-1">
             Nama Keluarga (Last Name):
           </label>
-          <input
+          <input id="ieeecitation-builder-3"
             type="text"
             value={authorLastName}
             onChange={(e) => setAuthorLastName(e.target.value)}
@@ -159,10 +159,10 @@ export const IEEECitationBuilder: React.FC = () => {
         </div>
 
         <div>
-          <label className="text-xs font-semibold text-stone-700 dark:text-stone-300 block mb-1">
+          <label htmlFor="ieeecitation-builder-4" className="text-xs font-semibold text-stone-700 dark:text-stone-300 block mb-1">
             Tahun Penerbitan:
           </label>
-          <input
+          <input id="ieeecitation-builder-4"
             type="text"
             value={year}
             onChange={(e) => setYear(e.target.value)}
@@ -172,10 +172,10 @@ export const IEEECitationBuilder: React.FC = () => {
         </div>
 
         <div className="sm:col-span-2">
-          <label className="text-xs font-semibold text-stone-700 dark:text-stone-300 block mb-1">
+          <label htmlFor="ieeecitation-builder-5" className="text-xs font-semibold text-stone-700 dark:text-stone-300 block mb-1">
             {docType === 'book' ? 'Judul Buku:' : 'Judul Artikel / Makalah:'}
           </label>
-          <input
+          <input id="ieeecitation-builder-5"
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -184,14 +184,14 @@ export const IEEECitationBuilder: React.FC = () => {
         </div>
 
         <div className="sm:col-span-2">
-          <label className="text-xs font-semibold text-stone-700 dark:text-stone-300 block mb-1">
+          <label htmlFor="ieeecitation-builder-6" className="text-xs font-semibold text-stone-700 dark:text-stone-300 block mb-1">
             {docType === 'book'
               ? 'Penerbit & Kota:'
               : docType === 'article'
               ? 'Nama Jurnal Ilmiah:'
               : 'Nama Konferensi (Proc.):'}
           </label>
-          <input
+          <input id="ieeecitation-builder-6"
             type="text"
             value={docType === 'book' ? `${publisher}` : containerTitle}
             onChange={(e) => {
@@ -205,10 +205,10 @@ export const IEEECitationBuilder: React.FC = () => {
         {docType !== 'book' && (
           <>
             <div>
-              <label className="text-xs font-semibold text-stone-700 dark:text-stone-300 block mb-1">
+              <label htmlFor="ieeecitation-builder-7" className="text-xs font-semibold text-stone-700 dark:text-stone-300 block mb-1">
                 Volume:
               </label>
-              <input
+              <input id="ieeecitation-builder-7"
                 type="text"
                 value={volume}
                 onChange={(e) => setVolume(e.target.value)}
@@ -217,10 +217,10 @@ export const IEEECitationBuilder: React.FC = () => {
               />
             </div>
             <div>
-              <label className="text-xs font-semibold text-stone-700 dark:text-stone-300 block mb-1">
+              <label htmlFor="ieeecitation-builder-8" className="text-xs font-semibold text-stone-700 dark:text-stone-300 block mb-1">
                 Issue / Nomor:
               </label>
-              <input
+              <input id="ieeecitation-builder-8"
                 type="text"
                 value={issue}
                 onChange={(e) => setIssue(e.target.value)}
@@ -229,10 +229,10 @@ export const IEEECitationBuilder: React.FC = () => {
               />
             </div>
             <div>
-              <label className="text-xs font-semibold text-stone-700 dark:text-stone-300 block mb-1">
+              <label htmlFor="ieeecitation-builder-9" className="text-xs font-semibold text-stone-700 dark:text-stone-300 block mb-1">
                 Halaman (pp.):
               </label>
-              <input
+              <input id="ieeecitation-builder-9"
                 type="text"
                 value={pages}
                 onChange={(e) => setPages(e.target.value)}
@@ -278,6 +278,7 @@ export const IEEECitationBuilder: React.FC = () => {
 
         <textarea
           rows={3}
+          aria-label="Paragraf berisi sitasi IEEE yang akan dicek"
           value={textToCheck}
           onChange={(e) => setTextToCheck(e.target.value)}
           className="w-full p-3 rounded-xl border border-stone-300 dark:border-stone-700 bg-stone-50 dark:bg-stone-900/40 text-stone-900 dark:text-stone-100 text-xs font-mono leading-relaxed focus:ring-2 focus:ring-indigo-500 mb-3"

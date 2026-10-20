@@ -46,10 +46,10 @@ export const KR20Calculator: React.FC = () => {
         {/* Form Inputs */}
         <div className="space-y-4">
           <div>
-            <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 block mb-1">
+            <label htmlFor="kr20calculator-1" className="text-xs font-semibold text-slate-700 dark:text-slate-300 block mb-1">
               Jumlah Butir Item Dikotomi (k):
             </label>
-            <input
+            <input id="kr20calculator-1"
               type="number"
               min="2"
               value={k}
@@ -60,10 +60,10 @@ export const KR20Calculator: React.FC = () => {
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 block mb-1">
+            <label htmlFor="kr20calculator-2" className="text-xs font-semibold text-slate-700 dark:text-slate-300 block mb-1">
               Jumlah Proporsi pj × qj (Σ(pj × qj)):
             </label>
-            <input
+            <input id="kr20calculator-2"
               type="number"
               step="0.01"
               min="0"
@@ -77,10 +77,10 @@ export const KR20Calculator: React.FC = () => {
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 block mb-1">
+            <label htmlFor="kr20calculator-3" className="text-xs font-semibold text-slate-700 dark:text-slate-300 block mb-1">
               Varians Skor Total Tes (σ²):
             </label>
-            <input
+            <input id="kr20calculator-3"
               type="number"
               step="0.01"
               min="0.01"

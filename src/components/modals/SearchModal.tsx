@@ -16,6 +16,7 @@ import { allTopics } from '../../data/modules';
 import { allGlossaryTerms } from '../../data/glossary';
 import { allComparisons } from '../../data/comparisons';
 import { cn } from '../common/cn';
+import { useDialogFocus } from '../common/Modal';
 
 interface Entry {
   id: string;
@@ -97,20 +98,11 @@ const suggestions = ['sempro', 'rumusan masalah', 'plagiarisme', 'uji t', 'APA 7
 export default function SearchModal({ onClose }: { onClose: () => void }) {
   const [q, setQ] = useState('');
   const [active, setActive] = useState(0);
-  const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
   const results = useMemo(() => search(q), [q]);
 
-  useEffect(() => {
-    const previous = document.activeElement as HTMLElement | null;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    inputRef.current?.focus();
-    return () => {
-      document.body.style.overflow = prev;
-      previous?.focus?.();
-    };
-  }, []);
+  useDialogFocus(dialogRef, true, onClose);
 
   useEffect(() => {
     listRef.current?.querySelector('[aria-selected="true"]')?.scrollIntoView({ block: 'nearest' });
@@ -122,10 +114,7 @@ export default function SearchModal({ onClose }: { onClose: () => void }) {
   };
 
   const onKey = (ev: React.KeyboardEvent) => {
-    if (ev.key === 'Escape') {
-      ev.preventDefault();
-      onClose();
-    } else if (ev.key === 'ArrowDown') {
+    if (ev.key === 'ArrowDown') {
       ev.preventDefault();
       setActive((i) => Math.min(i + 1, results.length - 1));
     } else if (ev.key === 'ArrowUp') {
@@ -140,11 +129,10 @@ export default function SearchModal({ onClose }: { onClose: () => void }) {
   return createPortal(
     <div className="fixed inset-0 z-[60] flex items-start justify-center px-3 pt-[8vh] sm:px-4 sm:pt-[12vh]" onKeyDown={onKey}>
       <div className="absolute inset-0 bg-slate-950/60 backdrop-blur-[2px]" onClick={onClose} aria-hidden="true" />
-      <div role="dialog" aria-modal="true" aria-label="Pencarian" className="toast-enter relative flex max-h-[78dvh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-slate-800 dark:bg-slate-900">
+      <div ref={dialogRef} role="dialog" aria-modal="true" aria-label="Pencarian" className="toast-enter relative flex max-h-[78dvh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-slate-800 dark:bg-slate-900">
         <div className="flex items-center gap-3 border-b border-slate-200 px-4 dark:border-slate-800">
           <Search aria-hidden="true" className="h-5 w-5 shrink-0 text-slate-400" />
           <input
-            ref={inputRef}
             role="combobox"
             aria-expanded={results.length > 0}
             aria-controls="hasil-cari"

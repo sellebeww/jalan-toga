@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Calculator, FlaskConical, Wrench } from 'lucide-react';
 import { Link, useTabParam } from '../app/router';
 import { cochran, describe, fmt, interpretR, parseNumbers, pearson, rulesOfThumb, slovin, Z_TABLE } from '../lib/sampling';

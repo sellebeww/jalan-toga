@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { ListPlus, MessagesSquare, Pencil, Plus, Send, Trash2 } from 'lucide-react';
 import { useTabParam } from '../app/router';
 import { messageTemplates, fillTemplate, greetingNow } from '../data/pesan';
@@ -199,7 +199,7 @@ function LogTab() {
                   <Pencil aria-hidden="true" className="h-4 w-4" /> Ubah
                 </button>
                 <button
-                  className="btn-ghost min-h-10 text-sm text-rose-600"
+                  className="btn-ghost min-h-10 text-sm text-rose-600 dark:text-rose-400"
                   onClick={async () => {
                     if (await confirmAction({ title: 'Hapus catatan bimbingan ini?', body: g.topik, confirmLabel: 'Hapus', danger: true })) appStore.deleteGuidance(g.id);
                   }}
