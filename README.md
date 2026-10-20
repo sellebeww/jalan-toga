@@ -1,6 +1,18 @@
 # Jalan Toga
 
-**Dari bingung, sampai wisuda.** Website pendamping skripsi untuk mahasiswa Indonesia dari semua jurusan: roadmap personal, panduan tiap bab, pemilih metodologi, toolkit statistik, manajer referensi, log bimbingan, simulasi sidang, dan dukungan mental. Gratis, tanpa login, bisa dipasang (PWA) dan dibuka offline.
+**Dari bingung, sampai wisuda.** Website pendamping skripsi untuk mahasiswa Indonesia dari semua jurusan: roadmap personal, panduan tiap bab, pemilih metodologi, toolkit statistik, manajer referensi, log bimbingan, simulasi sidang, dan dukungan mental. Gratis, login opsional, bisa dipasang (PWA) dan dibuka offline.
+
+## Tampilan
+
+| Beranda | Roadmap |
+|---|---|
+| ![Beranda](docs/screenshots/beranda.jpg) | ![Roadmap](docs/screenshots/roadmap.jpg) |
+
+| Toolkit penelitian | Simulasi sidang |
+|---|---|
+| ![Toolkit penelitian](docs/screenshots/toolkit.jpg) | ![Simulasi sidang](docs/screenshots/sidang.jpg) |
+
+<img src="docs/screenshots/beranda-mobile-gelap.jpg" alt="Beranda di HP, mode gelap" width="280">
 
 ## Menjalankan
 
@@ -15,7 +27,7 @@ npm run lint     # type-check (sama dengan npm run typecheck)
 npm run preview  # sajikan hasil build secara lokal
 ```
 
-Tidak ada API key atau variabel lingkungan wajib. Semua data pengguna tersimpan di browser (localStorage) dan bisa diekspor/impor JSON dari menu Pengaturan.
+Tidak ada variabel lingkungan yang wajib. Tanpa konfigurasi, aplikasi berjalan dalam mode lokal: semua data tersimpan di browser (localStorage) dan bisa diekspor/impor JSON dari menu Pengaturan. Untuk login dan sinkron antar perangkat, isi `VITE_SUPABASE_URL` dan `VITE_SUPABASE_PUBLISHABLE_KEY` (lihat `.env.example`).
 
 Untuk membuat `sitemap.xml` dan `robots.txt` saat build, isi alamat situs (lihat `.env.example`):
 
@@ -34,6 +46,10 @@ SITE_URL=https://alamat-situsmu.id npm run build
 - `docs/audit/` laporan audit keamanan, kebersihan, dan aksesibilitas beserta keputusan dan cara rollback.
 
 Konten yang bergantung aturan kampus (format, jumlah halaman, syarat sidang) ditandai di aplikasi agar dicocokkan dengan buku pedoman fakultas.
+
+## Lisensi
+
+© 2026 Vassel Goleyu. All rights reserved. Lihat [LICENSE](LICENSE).
 
 ## Keamanan saat deploy
 
