@@ -10,23 +10,23 @@
   --font-serif: var(--font-heading);
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-  /* Netral arang hangat (gaya "study app" gelap) + aksen hijau.
+  /* Netral hijau hutan (gelap: Dark Forest) / krem sage (terang: Sage Cream) + aksen teal.
      Menimpa skala slate/indigo bawaan supaya seluruh komponen ikut. */
-  --color-slate-50: #f8f7f5;
-  --color-slate-100: #f0eeeb;
-  --color-slate-200: #e3e0dc;
-  --color-slate-300: #ccc8c2;
-  --color-slate-400: #8e8a84;
-  --color-slate-500: #6d6964;
-  --color-slate-600: #53504c;
-  --color-slate-700: #403d3a;
-  --color-slate-800: #33312e;
-  --color-slate-900: #262422;
-  --color-slate-950: #1a1918;
+  --color-slate-50: #f6f4ea;
+  --color-slate-100: #eceadb;
+  --color-slate-200: #dcdfcb;
+  --color-slate-300: #c3c9b2;
+  --color-slate-400: #8b9585;
+  --color-slate-500: #66715f;
+  --color-slate-600: #4e5a4a;
+  --color-slate-700: #3a4638;
+  --color-slate-800: #233629;
+  --color-slate-900: #14261c;
+  --color-slate-950: #0d1a13;
 
-  --color-indigo-50: #effcf9;
-  --color-indigo-100: #d3f6ee;
-  --color-indigo-200: #a7ebdd;
+  --color-indigo-50: #ebf6ee;
+  --color-indigo-100: #d2eedf;
+  --color-indigo-200: #a8e3cf;
   --color-indigo-300: #6fdcc7;
   --color-indigo-400: #33c3ae;
   --color-indigo-500: #14a597;
@@ -36,8 +36,9 @@
   --color-indigo-900: #0d4642;
   --color-indigo-950: #052a28;
 
-  --color-ink: #10264d;
-  --color-paper: #f8f7f5;
+  --color-white: #fffdf7; /* kartu putih hangat */
+  --color-ink: #14261c;
+  --color-paper: #f6f4ea;
 }
 
 @utility font-heading { font-family: var(--font-heading); }
@@ -47,24 +48,24 @@
 
 @layer base {
   :root {
-    --bg-page: #f8f7f5;
-    --surface-card: #ffffff;
-    --border-subtle: #e3e0dc;
-    --text-primary: #1a1918;
-    --text-secondary: #53504c;
-    --text-muted: #6d6964;
+    --bg-page: #f6f4ea;
+    --surface-card: #fffdf7;
+    --border-subtle: #dcdfcb;
+    --text-primary: #0d1a13;
+    --text-secondary: #4e5a4a;
+    --text-muted: #66715f;
     --color-primary: #0b8579;
     --color-primary-hover: #0a6b62;
     color-scheme: light;
   }
 
   .dark {
-    --bg-page: #1a1918;
-    --surface-card: #262422;
-    --border-subtle: #3a3835;
-    --text-primary: #f5f3ef;
-    --text-secondary: #bdb8b1;
-    --text-muted: #9f9a93;
+    --bg-page: #0d1a13;
+    --surface-card: #14261c;
+    --border-subtle: #223a2b;
+    --text-primary: #eef2e6;
+    --text-secondary: #b9c4b3;
+    --text-muted: #98a592;
     --color-primary: #33c3ae;
     --color-primary-hover: #6fdcc7;
     color-scheme: dark;

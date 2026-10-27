@@ -1,24 +1,24 @@
 import React from 'react';
-import { Flame, Monitor, Moon, Search, Sun } from 'lucide-react';
+import { Flame, Moon, Search, Sun } from 'lucide-react';
 import { Link } from '../../app/router';
 import { appStore, useAppStore } from '../../lib/store';
 import { usePlan } from '../../lib/usePlan';
-import type { ThemePref } from '../../lib/theme';
+import { resolveTheme } from '../../lib/theme';
 import { BrandMark } from './Brand';
-
-const NEXT_THEME: Record<ThemePref, ThemePref> = { system: 'light', light: 'dark', dark: 'system' };
-const THEME_LABEL: Record<ThemePref, string> = { system: 'sistem', light: 'terang', dark: 'gelap' };
 
 export const ThemeToggle: React.FC = () => {
   const { themePref } = useAppStore();
-  const Icon = themePref === 'system' ? Monitor : themePref === 'light' ? Sun : Moon;
+  const current = resolveTheme(themePref);
+  const next = current === 'dark' ? 'light' : 'dark';
+  const Icon = current === 'dark' ? Moon : Sun;
+  const label = next === 'dark' ? 'gelap' : 'terang';
   return (
     <button
       type="button"
-      onClick={() => appStore.setTheme(NEXT_THEME[themePref])}
+      onClick={() => appStore.setTheme(next)}
       className="btn-ghost h-10 min-h-10 w-10 px-0"
-      aria-label={`Tema: ${THEME_LABEL[themePref]}. Ketuk untuk ganti ke ${THEME_LABEL[NEXT_THEME[themePref]]}`}
-      title={`Tema: ${THEME_LABEL[themePref]}`}
+      aria-label={`Ganti ke mode ${label}`}
+      title={`Mode ${label}`}
     >
       <Icon aria-hidden="true" className="h-[18px] w-[18px]" />
     </button>

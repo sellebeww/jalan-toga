@@ -1,6 +1,6 @@
 export type ThemePref = 'system' | 'light' | 'dark';
 
-const THEME_COLORS = { light: '#f8f7f5', dark: '#1a1918' } as const;
+const THEME_COLORS = { light: '#f6f4ea', dark: '#0d1a13' } as const;
 
 export function resolveTheme(pref: ThemePref): 'light' | 'dark' {
   if (pref === 'light' || pref === 'dark') return pref;
