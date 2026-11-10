@@ -1,6 +1,14 @@
-# Jalan Toga
+<div align="center">
 
-**Dari bingung, sampai wisuda.** Pendamping skripsi untuk mahasiswa Indonesia dari semua jurusan. Gratis, login opsional, bisa dipasang sebagai PWA dan dibuka offline.
+<img src="public/logo.webp" alt="Jalan Toga" width="220">
+
+### Dari bingung, sampai wisuda.
+
+<p>Pendamping skripsi untuk mahasiswa Indonesia: roadmap personal, panduan bab, toolkit statistik, pengelola referensi, log bimbingan, dan simulasi sidang.</p>
+
+<p><img src="https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white&labelColor=3a3f47" alt="React 19"> <img src="https://img.shields.io/badge/TypeScript-7-3178C6?logo=typescript&logoColor=white&labelColor=3a3f47" alt="TypeScript 7"> <img src="https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white&labelColor=3a3f47" alt="Vite 8"> <img src="https://img.shields.io/badge/Tailwind-4-38BDF8?logo=tailwindcss&logoColor=white&labelColor=3a3f47" alt="Tailwind 4"> <img src="https://img.shields.io/badge/PWA-offline-5A0FC8?logo=pwa&logoColor=white&labelColor=3a3f47" alt="PWA offline"> <img src="https://img.shields.io/badge/license-All%20rights%20reserved-1e3a8a?labelColor=3a3f47" alt="license All rights reserved"></p>
+
+</div>
 
 ## Fitur
 
