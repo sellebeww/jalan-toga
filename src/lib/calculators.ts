@@ -1,5 +1,9 @@
 // Mathematical and statistical calculation helpers for RTI
 
+/** Toleransi galat floating-point saat membandingkan dengan batas kategori (mis. 4/3*(1-2/5) = 0.7999999999999999). */
+const EPS = 1e-9;
+const atLeast = (value: number, threshold: number) => value + EPS >= threshold;
+
 export interface LikertInput {
   ss: number; // Sangat Setuju (5)
   st: number; // Setuju (4)
@@ -95,9 +99,9 @@ export function calculateSpearmanBrown(r: number): SpearmanBrownResult {
   const rho = numerator / denominator;
 
   let interpretation = 'Rendah';
-  if (rho >= 0.8) interpretation = 'Sangat Tinggi (Sangat Handal)';
-  else if (rho >= 0.6) interpretation = 'Tinggi (Cukup Handal)';
-  else if (rho >= 0.4) interpretation = 'Sedang';
+  if (atLeast(rho, 0.8)) interpretation = 'Sangat Tinggi (Sangat Handal)';
+  else if (atLeast(rho, 0.6)) interpretation = 'Tinggi (Cukup Handal)';
+  else if (atLeast(rho, 0.4)) interpretation = 'Sedang';
   else interpretation = 'Rendah / Kurang Handal';
 
   const steps = [
@@ -143,9 +147,9 @@ export function calculateCronbachAlpha(
   const alpha = factor * bracket;
 
   let interpretation = 'Kurang Handal';
-  if (alpha >= 0.8) interpretation = 'Sangat Baik (Tinggi)';
-  else if (alpha >= 0.7) interpretation = 'Dapat Diterima (Layak)';
-  else if (alpha >= 0.6) interpretation = 'Cukup';
+  if (atLeast(alpha, 0.8)) interpretation = 'Sangat Baik (Tinggi)';
+  else if (atLeast(alpha, 0.7)) interpretation = 'Dapat Diterima (Layak)';
+  else if (atLeast(alpha, 0.6)) interpretation = 'Cukup';
   else interpretation = 'Rendah / Perlu Perbaikan Item';
 
   const steps = [
@@ -198,9 +202,9 @@ export function calculateKR20(
   const rho = factor * bracket;
 
   let interpretation = 'Kurang Handal';
-  if (rho >= 0.8) interpretation = 'Sangat Baik (Tinggi)';
-  else if (rho >= 0.7) interpretation = 'Layak / Baik';
-  else if (rho >= 0.6) interpretation = 'Cukup';
+  if (atLeast(rho, 0.8)) interpretation = 'Sangat Baik (Tinggi)';
+  else if (atLeast(rho, 0.7)) interpretation = 'Layak / Baik';
+  else if (atLeast(rho, 0.6)) interpretation = 'Cukup';
   else interpretation = 'Rendah';
 
   const steps = [

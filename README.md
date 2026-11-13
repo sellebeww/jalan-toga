@@ -34,14 +34,64 @@
 Butuh Node.js 22.12+.
 
 ```bash
-npm install
+npm ci            # pasang dependensi sesuai package-lock.json
 npm run dev       # http://localhost:3000
 npm run build     # hasil di dist/
-npm test          # tes unit (vitest)
-npm run lint      # type-check
+npm run preview   # sajikan hasil build
 ```
 
-Tanpa konfigurasi, data tersimpan di browser dan bisa diekspor/diimpor lewat Pengaturan. Untuk login dan sinkron antar perangkat, isi `VITE_SUPABASE_URL` dan `VITE_SUPABASE_PUBLISHABLE_KEY` (lihat `.env.example`). Untuk `sitemap.xml` dan `robots.txt`, build dengan `SITE_URL=https://alamat-situsmu.id npm run build`.
+### Skrip
+
+| Skrip | Fungsi |
+|---|---|
+| `npm run dev` | Server pengembangan (port 3000) |
+| `npm run build` | Build produksi ke `dist/` |
+| `npm run preview` | Menyajikan `dist/` secara lokal |
+| `npm run typecheck` | Pemeriksaan tipe TypeScript (`tsc --noEmit`) |
+| `npm run lint` | Alias dari `typecheck`; belum ada ESLint |
+| `npm test` | Tes unit (Vitest, jsdom) |
+| `npm run brand` | Membuat ulang aset logo dari `scripts/logo-source.png` |
+
+### Variabel lingkungan
+
+Semua opsional. Salin `.env.example` ke `.env` bila perlu; jangan mengomit `.env`.
+
+| Variabel | Dipakai untuk |
+|---|---|
+| `VITE_SUPABASE_URL` | Alamat proyek Supabase untuk login dan sinkron antar perangkat |
+| `VITE_SUPABASE_PUBLISHABLE_KEY` | Kunci publik (publishable/anon) Supabase. Jangan pernah mengisi kunci `service_role` di sini: semua `VITE_*` masuk ke bundle browser |
+| `SITE_URL` | Saat build, untuk membuat `sitemap.xml` dan `robots.txt` |
+
+Tanpa konfigurasi, data tersimpan di browser dan bisa diekspor/diimpor lewat Pengaturan. Fitur Riset Topik memakai kunci API Anthropic milik pengguna yang dimasukkan di halaman itu; kunci disimpan di `localStorage` perangkat, tidak ikut cadangan, dan tidak dibaca dari `.env`.
+
+## Tes
+
+```bash
+npm test
+```
+
+Tes ada di `src/**/*.test.ts` dan dijalankan dengan `TZ=UTC` (diatur di `test/globalSetup.ts`) agar hasilnya sama di semua mesin. Isinya:
+
+- `src/lib/calculators.test.ts`: Cronbach alpha, KR-20, Spearman-Brown, Likert, Harry King, Roscoe, tabel Isaac-Michael. Nilai acuan dihitung terpisah dari data mentah, bukan dari kode aplikasi.
+- `src/lib/sampling.test.ts`: Slovin, Cochran, aturan praktis, statistik deskriptif, Pearson.
+- `src/lib/estimate.test.ts`: estimasi kelulusan dan perencanaan roadmap (hitung tangan).
+- `src/data/data.test.ts`: integritas data glosarium dan flashcard (id unik, field wajib, modul valid).
+- `src/lib/lib.test.ts`, `src/lib/auth.test.ts`: sitasi, store, judul, parser laporan AI, dan lainnya.
+
+Tes tidak memanggil Supabase maupun Anthropic dan tidak butuh jaringan.
+
+## CI
+
+`.github/workflows/ci.yml` berjalan di setiap push ke `main` dan `improve/**` serta pada pull request: Node 22, `npm ci`, `npm run typecheck`, `npm test`, `npm run build`.
+
+## Batasan
+
+- Belum ada tes komponen/UI dan tes end-to-end; cakupan tes baru pada logika murni dan data.
+- Belum ada ESLint (`npm run lint` hanya memeriksa tipe).
+- Kunci API Anthropic dipakai langsung dari browser (`dangerouslyAllowBrowser`). Ini kompromi untuk aplikasi tanpa backend; lihat [docs/AUDIT.md](docs/AUDIT.md).
+- Repo tidak menyertakan migrasi atau kebijakan RLS Supabase untuk tabel `user_state`; pastikan RLS aktif di proyekmu.
+- Tabel Harry King hanya terverifikasi untuk N=200 (contoh pada materi); nilai lain adalah pendekatan.
+- Pemeriksaan gulir horizontal 360px dilakukan manual dengan Playwright, belum otomatis di CI.
 
 ## Struktur
 
@@ -52,7 +102,9 @@ Tanpa konfigurasi, data tersimpan di browser dan bisa diekspor/diimpor lewat Pen
 | `src/pages/`, `src/app/` | Halaman dan router. |
 | `src/components/` | Komponen UI bersama. |
 | `public/` | Logo, ikon PWA, manifest, service worker. |
-| `docs/audit/` | Laporan audit keamanan dan aksesibilitas. |
+| `docs/audit/` | Laporan audit keamanan dan aksesibilitas (Oktober 2026). |
+| `docs/AUDIT.md` | Audit keamanan kunci, `.env`, dan Supabase/RLS. |
+| `test/` | Setup global tes (zona waktu). |
 
 Konten yang bergantung aturan kampus (format, jumlah halaman, syarat sidang) ditandai di aplikasi agar dicocokkan dengan buku pedoman fakultas.
 

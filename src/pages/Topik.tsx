@@ -25,7 +25,7 @@ function IdeaTab({ onCheck }: { onCheck: (judul: string) => void }) {
 
   return (
     <div className="space-y-5">
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {!profile && <MajorSelect value={major.id} onChange={(id) => { setMajorId(id); setClusters([]); }} hint="Atur profil agar jurusan terisi otomatis." />}
         <div>
           <p className="mb-1.5 text-sm font-semibold">Jenis penelitian</p>
