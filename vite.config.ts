@@ -56,6 +56,6 @@ export default defineConfig(({ mode }) => {
     base: './',
     plugins: [react(), tailwindcss(), sitemap(env.SITE_URL), csp()],
     resolve: { alias: { '@': path.resolve(import.meta.dirname, '.') } },
-    test: { environment: 'jsdom', globals: true, include: ['src/**/*.test.ts'] }
+    test: { environment: 'jsdom', globals: true, include: ['src/**/*.test.ts'], globalSetup: ['./test/globalSetup.ts'] }
   };
 });
